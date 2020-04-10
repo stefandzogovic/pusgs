@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/entities/user';
+import { UserService } from 'src/app/services/user.service';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -7,10 +9,11 @@ import { User } from 'src/entities/user';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  currentUser : User;
+  constructor(private data: UserService) {}
+
 
   ngOnInit(): void {
+    this.data.currentUser.subscribe(user => this.currentUser = user)
   }
-
-  currentUser : User = new User("Stefan", "Dzogovic", "dzoga123", "sifra123", "Ulica");
 }

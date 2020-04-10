@@ -1,7 +1,9 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand" href="#">PUSGS</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav mx-auto">
@@ -26,8 +28,8 @@
                 </div>
             </li>
         </ul>
-    
-        <!-- <ul *ngIf="currentUser.type === 'user'" class="navbar-nav">
+
+        <ul *ngIf="currentUser.type === 'user'" class="navbar-nav">
             <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
                 <a class="nav-link" [routerLink]="['/']">Friends</a>
             </li>
@@ -37,16 +39,15 @@
             <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
                 <a class="nav-link" [routerLink]="['/profile']">My Profile</a>
             </li>
-        </ul> -->
+        </ul> 
 
-        <!-- <ul *ngIf="currentUser.type === 'guest'" class="navbar-nav">
+        <ul *ngIf="currentUser.type === 'guest'" class="navbar-nav">
             <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
                 <a class="nav-link" [routerLink]="['/']"></a>
             </li>
             <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
                 <a class="nav-link" [routerLink]="['/']">Sign Up</a>
             </li>
-        </ul> -->
+        </ul>
     </div>
-  </nav>
-
+</nav>

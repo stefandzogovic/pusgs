@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {Router} from '@angular/router';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -6,13 +8,21 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'pusgs-front';
 
-  becomeAUser(): void {
-    localStorage.setItem('sessionUserRole', JSON.stringify('USER'));
+  title = 'pusgs-front';
+  constructor(
+    private router: Router,
+    private userService: UserService
+   ) {}
+
+  becomeSomething(param : string): void {
+    this.userService.changeType(param);
+    console.log(this.userService.currentUser);
+    this.router.navigate(['/']);
   }
 
   revertRole(): void {
-    localStorage.removeItem('sessionUserRole');
+    this.userService.changeType("guest");
+    this.router.navigate(['/']); 
   }
 }
