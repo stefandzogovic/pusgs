@@ -7,4 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'pusgs-front';
+
+  becomeAUser(): void {
+    localStorage.setItem('sessionUserRole', JSON.stringify('USER'));
+  }
+
+  revertRole(): void {
+    localStorage.removeItem('sessionUserRole');
+  }
 }
