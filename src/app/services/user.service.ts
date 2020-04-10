@@ -7,7 +7,7 @@ import { User } from 'src/entities/user';
 })
 export class UserService {
 
-  private tempUser = new User("Stefan", "Dzogovic", "dzogara123", "dzogara123", "adresa", "user");
+  private tempUser = new User("Stefan", "Dzogovic", "dzogara123", "dzogara123", "adresa", "user", "mojemail@gmail.com", "0649772931");
   private userSource = new BehaviorSubject<User>(this.tempUser);
   currentUser = this.userSource.asObservable();
 

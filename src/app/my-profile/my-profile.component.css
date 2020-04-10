@@ -1,0 +1,11 @@
+.friend-list
+{
+    overflow-y : auto;
+    height:400px;
+}
+
+#friend-list-header
+{
+    font-weight: bold;
+    font-size: 20px;
+}
