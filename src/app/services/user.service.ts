@@ -53,4 +53,25 @@ export class UserService {
     return user;
   }
   
+  createFriendUsers()
+  {
+    let friendList = new Array<User>();
+    let frienListTemp =[];
+    const user1 = new User("Ime", "Prezime", "user123", "nebitno", "adresa", "user", "email@gmail.com", "02151240");
+    const user2 = new User("TempIme", "TempPrezime", "user123", "nebitno", "adresa", "user", "email@gmail.com", "02151240");
+    const user3 = new User("Milan", "Milanovic", "user123", "nebitno", "adresa", "user", "email@gmail.com", "02151240");
+    const user4 = new User("adfg", "gdsg", "user123", "nebitno", "adresa", "user", "email@gmail.com", "02151240");
+
+    friendList.push(user1);
+    friendList.push(user2);
+    friendList.push(user3);
+    friendList.push(user4);
+
+    friendList.forEach(element => {
+        frienListTemp.push({name: element.name, lastname: element.lastname});
+    });
+
+    return frienListTemp;
+  }
+
 }

@@ -3,6 +3,7 @@ import { User } from 'src/entities/user';
 import { UserService } from '../services/user.service';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms'
 
+
 @Component({
   selector: 'app-my-profile',
   templateUrl: './my-profile.component.html',
@@ -12,6 +13,8 @@ export class MyProfileComponent implements OnInit {
 
   currentUser : User;
   contactForm: FormGroup;
+  friendList;
+  searchText;
 
   constructor(private data: UserService,
     private formBuilder: FormBuilder) { 
@@ -20,6 +23,7 @@ export class MyProfileComponent implements OnInit {
   ngOnInit(): void {
     this.data.currentUser.subscribe(user => this.currentUser = user)
     this.contactForm = this.createFormGroupWithBuilder(this.formBuilder);
+    this.friendList = this.data.createFriendUsers();
   }
   
   createFormGroupWithBuilder(formBuilder: FormBuilder) {

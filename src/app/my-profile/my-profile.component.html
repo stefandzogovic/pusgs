@@ -17,17 +17,28 @@
 
 
 
+            <div class="search-hero">
+                <input class="form-control" type="text" name="search" [(ngModel)]="searchText" placeholder="Search friend by name or lastname" autocomplete="off">
+                {{searchText}}
+              </div>
+              <div class="list-group-item text-center"><span id="friend-list-header">Friend List</span></div>
 
             <div class="friend-list">
+
                 <ul class="list-group">
-                    <li class="list-group-item text-center"><span id="friend-list-header">Friend List</span></li>
-                    <!-- <li class="list-group-item text-right"><span class="pull-left"><strong>Shares</strong></span> 125
-                    </li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>Likes</strong></span> 13</li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>Posts</strong></span> 37</li>
-                    <li class="list-group-item text-right"><span class="pull-left"><strong>Followers</strong></span> 78
-                    </li> -->
+
+                    <div class="list-group" *ngFor="let user of friendList |filter:searchText">
+                        <li class="list-group-item text-left">
+                            <div class="list-group-item text-left">
+                                <span class="pull-left"><strong>{{user.name}}</strong></span>
+                            </div>
+                            <div class="list-group-item text-left">
+                                <span class="pull-right"><strong>{{user.lastname}}</strong></span>
+                            </div>
+                        </li>
+                    </div>
                 </ul>
+
 
             </div>
 
