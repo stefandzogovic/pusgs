@@ -29,6 +29,7 @@ export class UserService {
   changeType(type : string) {
     this.tempUser.type = type;
     this.userSource.next(this.tempUser);
+    this.UserToStorage(this.tempUser);
   }
 
   UserToStorage(user : User)

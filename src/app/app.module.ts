@@ -8,6 +8,7 @@ import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { AvioprofileComponent } from './components/avioprofile/avioprofile.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { FooterComponent } from './components/footer/footer.component';
     routingComponents,
     HeaderComponent,
     FooterComponent,
+    AvioprofileComponent,
   ],
   imports: [
     BrowserModule,

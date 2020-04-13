@@ -25,4 +25,5 @@ export class AppComponent {
     this.userService.changeType("guest");
     this.router.navigate(['/']); 
   }
+  
 }

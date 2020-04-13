@@ -16,7 +16,7 @@
             <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
                 <a class="nav-link" [routerLink]="['/']">Cars</a>
             </li>
-            <li class="nav-item dropdown">
+            <!-- <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                     Dropdown link
@@ -26,8 +26,17 @@
                     <a class="dropdown-item" href="#">Another action</a>
                     <a class="dropdown-item" href="#">Something else here</a>
                 </div>
-            </li>
+            </li> -->
         </ul>
+
+        <ul *ngIf="currentUser.type === 'adminavio'" class="navbar-nav">
+            <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                <a class="nav-link" [routerLink]="['/avioprofile']">AvioCompany Profile</a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
+                <a class="nav-link" [routerLink]="['/profile']">My Profile</a>
+            </li>
+        </ul> 
 
         <ul *ngIf="currentUser.type === 'user'" class="navbar-nav">
             <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
@@ -46,7 +55,7 @@
                 <a class="nav-link" [routerLink]="['/']"></a>
             </li>
             <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-                <a class="nav-link" [routerLink]="['/']">Sign Up</a>
+                <a class="nav-link" [routerLink]="['/']">Login</a>
             </li>
         </ul>
     </div>
