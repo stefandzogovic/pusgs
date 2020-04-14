@@ -4,18 +4,20 @@ import { HomeComponent } from './home/home.component';
 import { MyProfileComponent } from './components/my-profile/my-profile.component';
 import { AvioprofileComponent } from './components/avioprofile/avioprofile.component';
 import { EditflightComponent } from './components/editflight/editflight.component';
+import { AvioadminGuard, } from './guards/avioadmin.guard';
 
 const routes: Routes = [
   {path: '', component: HomeComponent },
   {path: 'profile', component: MyProfileComponent},
   {
+    canActivate: [AvioadminGuard],
     path:
      'avioprofile',
     children: [
       { path: "", component: AvioprofileComponent},
       { path: "editflight/:id", component: EditflightComponent}
-
-    ]
+      
+    ],
   }
 ];
 

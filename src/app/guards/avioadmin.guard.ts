@@ -1,16 +1,23 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
+import { UserService } from '../services/user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AvioadminGuard implements CanActivate {
+  constructor(private data: UserService)
+  {
+
+  }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const userRole = JSON.parse(localStorage.getItem('sessionUserRole'));
-    if (userRole === 'avioadmin' || userRole === 'admin') {
+    console.log('does something');
+    const user = this.data.UserFromStorage();
+    console.log(user);
+    if (user.type === 'avioadmin' || user.type === 'admin') {
       return true;
     }
       
