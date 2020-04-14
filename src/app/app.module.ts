@@ -9,6 +9,7 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { AvioprofileComponent } from './components/avioprofile/avioprofile.component';
+import { EditflightComponent } from './components/editflight/editflight.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { AvioprofileComponent } from './components/avioprofile/avioprofile.compo
     HeaderComponent,
     FooterComponent,
     AvioprofileComponent,
+    EditflightComponent,
   ],
   imports: [
     BrowserModule,

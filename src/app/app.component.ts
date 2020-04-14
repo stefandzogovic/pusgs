@@ -17,7 +17,6 @@ export class AppComponent {
 
   becomeSomething(param : string): void {
     this.userService.changeType(param);
-    console.log(this.userService.currentUser);
     this.router.navigate(['/']);
   }
 

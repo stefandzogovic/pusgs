@@ -58,8 +58,10 @@
               <p class="card-text text-center">Number of stops: </p>
               <p class="card-text text-center">Duration: </p>
               <p class="card-text text-center">Distance: </p>
-              <a href="#" class="btn btn-primary">Edit this flight</a>
-            </div>
+              <button class="btn btn-primary" routerLink="/avioprofile/editflight/{{flight.id}}">
+                Detalji
+             </button>  
+          </div>
             <div class="col-sm-6">
               <h4 class="card-title"></h4>
               <p class="card-text">{{flight.dtdescend}}</p>
@@ -70,7 +72,6 @@
             </div>
         </div>
       </div>
-      
     </div>
 
   </div>

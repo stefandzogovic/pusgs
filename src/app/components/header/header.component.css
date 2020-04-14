@@ -6,7 +6,7 @@
     background-color: yellow;
   }
 
-  .navbar-nav center  {
+  #navbar-nav  {
     float: none;
     position: absolute;
     top: 50%;
@@ -16,7 +16,7 @@
 
   .navbar-center
 {
-    position: absolute;
+    position: fixed;
     width: 100%;
     left: 0;
     text-align: center;

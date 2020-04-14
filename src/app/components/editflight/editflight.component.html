@@ -1,0 +1,23 @@
+<div class="card h-100">
+    <div class="row card-body">
+        <div class="col-sm-6">
+            <h4 class="card-title"></h4>
+            <p class="card-text text-center">{{flight.dtascend}}</p>
+            <p class="card-text text-center">Ticket Price: </p>
+            <p class="card-text text-center">Number of stops: </p>
+            <p class="card-text text-center">Duration: </p>
+            <p class="card-text text-center">Distance: </p>
+            <button class="btn btn-primary" routerLink="/#">
+                Save
+            </button>
+        </div>
+        <div class="col-sm-6">
+            <h4 class="card-title"></h4>
+            <p class="card-text">{{flight.dtdescend}}</p>
+            <p class="card-text">{{flight.ticketprice}}$</p>
+            <p class="card-text">{{flight.stops.length}}</p>
+            <p class="card-text">{{flight.duration}}h</p>
+            <p class="card-text">{{flight.distance}}km</p>
+        </div>
+    </div>
+</div>
