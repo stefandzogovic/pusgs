@@ -2,3 +2,7 @@
 {
     border-radius: 100px;
 }
+#col-md-8
+{
+    margin-bottom: auto !important;
+}

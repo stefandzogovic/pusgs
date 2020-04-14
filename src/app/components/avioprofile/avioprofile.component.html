@@ -14,7 +14,7 @@
 <div class="container">
 
   <div class="row">
-    <div class="col-md-8 mb-5">
+    <div class="col-md-8">
       <h2>What We Do</h2>
       <hr>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A deserunt neque tempore recusandae animi soluta
@@ -40,12 +40,21 @@
         <abbr title="Email">E:</abbr>
         <a href="mailto:#">name@example.com</a>
       </address>
+      <div class="container-maps">
+        <div class="container-maps-one">
+          <google-map style="position: relative;" height="200px" width="100%" [zoom]="zoom" [center]="center" [options]="options"></google-map>
+        </div>
+      </div>
     </div>
   </div>
   <!-- /.row -->
-
+  <div class="col-md-8 mb-5">
+    <h2></h2>
+    <hr/>
+  </div>
   <div *ngFor="let item of aviocompany.destinations">
-    <h4 class="card-title">{{item.ascenddest}} - {{item.descenddest}} <a href="#" class="btn btn-primary">Add a flight</a> </h4>
+    <h4 class="card-title">{{item.ascenddest}} - {{item.descenddest}} <a href="#" class="btn btn-primary">Add a
+        flight</a> </h4>
     <div class="row">
 
       <div *ngFor="let flight of item.flights" class="col-md-4 mb-5">
@@ -60,8 +69,8 @@
               <p class="card-text text-center">Distance: </p>
               <button class="btn btn-primary" routerLink="/avioprofile/editflight/{{flight.id}}">
                 Detalji
-             </button>  
-          </div>
+              </button>
+            </div>
             <div class="col-sm-6">
               <h4 class="card-title"></h4>
               <p class="card-text">{{flight.dtdescend}}</p>
@@ -70,12 +79,13 @@
               <p class="card-text">{{flight.duration}}h</p>
               <p class="card-text">{{flight.distance}}km</p>
             </div>
+          </div>
         </div>
       </div>
+
     </div>
+    <!-- /.row -->
 
   </div>
-  <!-- /.row -->
-
+  <!-- /.container -->
 </div>
-<!-- /.container -->

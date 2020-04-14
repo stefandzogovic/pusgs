@@ -15,11 +15,7 @@ export class EditflightComponent implements OnInit {
   flight;
   constructor(private route: ActivatedRoute, private data: AviocompanyService) {
     route.params.subscribe(params => { this.id = params['id']; });
-
-    console.log(data.aviocompanies);
-    console.log(this.id);
     this.flight = this.data.aviocompanies[0].destinations[0].flights.find(x => x.id.toString() === this.id.toString());
-    console.log(this.flight);
 
   }
 

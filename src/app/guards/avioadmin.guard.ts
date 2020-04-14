@@ -17,7 +17,7 @@ export class AvioadminGuard implements CanActivate {
     console.log('does something');
     const user = this.data.UserFromStorage();
     console.log(user);
-    if (user.type === 'avioadmin' || user.type === 'admin') {
+    if (user.type === 'adminavio' || user.type === 'admin') {
       return true;
     }
       

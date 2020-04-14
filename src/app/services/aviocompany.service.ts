@@ -39,4 +39,6 @@ export class AviocompanyService {
      const tempflight = new Flight(dtascend, dtdescend, duration, distance, ticketprice, stops);
      return tempflight;
   }
+
+
 }

@@ -8,8 +8,8 @@ import { AppRoutingModule, routingComponents } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { AvioprofileComponent } from './components/avioprofile/avioprofile.component';
-import { EditflightComponent } from './components/editflight/editflight.component';
+import {GoogleMapsModule} from '@angular/google-maps';
+
 
 @NgModule({
   declarations: [
@@ -17,14 +17,13 @@ import { EditflightComponent } from './components/editflight/editflight.componen
     routingComponents,
     HeaderComponent,
     FooterComponent,
-    AvioprofileComponent,
-    EditflightComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule, ReactiveFormsModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    GoogleMapsModule
   ],
   bootstrap: [AppComponent]
 })
