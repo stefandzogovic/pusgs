@@ -12,7 +12,9 @@ export class AvioprofileComponent implements OnInit {
   aviocompany: AvioCompan;
   constructor(private data: AviocompanyService) { 
     this.aviocompany = data.aviocompanies[0];
+    console.log(this.aviocompany);
   }
+
 
   ngOnInit(): void {
   }
