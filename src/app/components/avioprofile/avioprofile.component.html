@@ -23,6 +23,12 @@
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis optio neque consectetur consequatur magni in
         nisi, natus beatae quidem quam odit commodi ducimus totam eum, alias, adipisci nesciunt voluptate. Voluptatum.
       </p>
+      <div class="col-md-8 mb-5">
+        <button class="btn btn-primary btn-lg" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          Flights
+        </button>
+        <hr/>
+      </div>
     </div>
     <div class="col-md-4 mb-5">
       <h2>Contact Us</h2>
@@ -48,11 +54,7 @@
     </div>
   </div>
   <!-- /.row -->
-  <div class="col-md-8 mb-5">
-    <h2></h2>
-    <hr/>
-  </div>
-  <div *ngFor="let item of aviocompany.destinations">
+  <div class="collapse" id="collapseExample" *ngFor="let item of aviocompany.destinations">
     <h4 class="card-title">{{item.ascenddest}} - {{item.descenddest}} <a href="#" class="btn btn-primary">Add a
         flight</a> </h4>
     <div class="row">

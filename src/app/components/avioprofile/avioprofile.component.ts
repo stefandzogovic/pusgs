@@ -20,6 +20,7 @@ export class AvioprofileComponent implements OnInit {
     minZoom: 8,
   }
   aviocompany: AvioCompan;
+  
   constructor(private data: AviocompanyService) { 
     this.aviocompany = data.aviocompanies[0];
     console.log(this.aviocompany);
