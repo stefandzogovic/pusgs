@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,13 +8,29 @@ using WebAPI.Models;
 
 namespace WebAPI.Contextt
 {
-    public class Context : DbContext
-    {
-        public Context(DbContextOptions<Context> options) : base(options)
-        {
+	public class Context : DbContext
+	{
+		public Context(DbContextOptions<Context> options) : base(options)
+		{
 
-        }
+		}
 
-        public DbSet<User> userdb { get; set; }
-    }
+		protected override void OnModelCreating(ModelBuilder builder)
+
+		{
+			base.OnModelCreating(builder);
+
+			builder.Entity<User>().HasMany(x => x.Friends);
+			builder.Entity<Friend>().HasKey(f => new { f.MainUserId, f.FriendUserId });
+			builder.Entity<Friend>().HasOne(f => f.MainUser).WithMany(mu => mu.MainUserFriends).HasForeignKey(f => f.MainUserId).OnDelete(DeleteBehavior.Restrict);
+			builder.Entity<Friend>()
+			.HasOne(f => f.FriendUser)
+			.WithMany(mu => mu.Friends)
+		    .HasForeignKey(f => f.FriendUserId);
+
+		}
+
+		public DbSet<User> userdb { get; set; }
+
+	}
 }

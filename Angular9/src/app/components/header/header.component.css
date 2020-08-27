@@ -2,8 +2,10 @@
     background-color: blue !important;
 }
 
-.active {
-    background-color: yellow;
+.active .nav-link {
+   color: brown;
+   font-size: 20px !important;
+   font-weight: bold;
   }
 
   #navbar-nav  {

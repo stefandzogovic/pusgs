@@ -16,18 +16,20 @@ export class MyProfileComponent implements OnInit {
   friendList;
   searchText;
 
-  constructor(private data: UserService,
+  constructor(private service: UserService,
     private formBuilder: FormBuilder) { 
   }
+  
 
   ngOnInit(): void {
-    this.data.currentUser.subscribe(user => this.currentUser = user)
+    this.service.currentUser.subscribe(user => this.currentUser = user)
     this.contactForm = this.createFormGroupWithBuilder(this.formBuilder);
-    this.friendList = this.data.createFriendUsers();
+    this.friendList = this.service.createFriendUsers();
   }
   
   createFormGroupWithBuilder(formBuilder: FormBuilder) {
     return formBuilder.group({
+        id : this.currentUser.id,
         name: this.currentUser.name,
         lastname: this.currentUser.lastname,
         username: this.currentUser.username,
@@ -39,8 +41,16 @@ export class MyProfileComponent implements OnInit {
     });
   }
   onSubmit(): void{
-    const result : User  = Object.assign({}, this.contactForm.value);
-    this.data.UserToStorage(result);
-    window.alert("Succefully changed.");
+    // const result : User  = Object.assign({}, this.contactForm.value);
+    // this.service.UserToStorage(result);
+    // window.alert("Succefully changed.");
+    this.service.postUser(this.currentUser).subscribe(
+      res => {
+        console.log(res)
+      },
+      err => {
+        console.log(err)
+      }
+    )
   }   
 }

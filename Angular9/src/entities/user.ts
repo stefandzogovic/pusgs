@@ -10,7 +10,8 @@ export class User
     phone : string;
     type : string;
 
-    constructor(name: string, lastname: string, username: string, password: string, address: string, type: string, email: string, phone: string) {
+    constructor(id: number, name: string, lastname: string, username: string, password: string, address: string, type: string, email: string, phone: string) {
+        this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.username = username;
