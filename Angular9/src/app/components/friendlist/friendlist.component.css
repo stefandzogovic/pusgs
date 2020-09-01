@@ -70,4 +70,5 @@ body.jw-modal-open {
  #flexbox-item 
 {
     width: 200px !important;
+    bottom: -8px;
 }

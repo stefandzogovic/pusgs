@@ -1,21 +1,27 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from 'src/entities/user';
-import { HttpClient} from "@angular/common/http"
+import { HttpClient, HttpParams} from "@angular/common/http"
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  private tempUser = new User(0, "Stefan", "Dzogovic", "dzogara123", "dzogara123", "adresa", "user", "mojemail@gmail.com", "0649772931");
+  // private tempUser = new User(1, "Stefan", "Dzogovic", "dzogara123", "dzogara123", "adresa", "user", "mojemail@gmail.com", "0649772931");
+  private tempUser = new User(3, "Ime", "Prezime", "dzogara123", "password", "adresasa", "user", "mail@gmail.com", "0649774215212931");
+
   private userSource;
   currentUser;
+  requestUsers: Array<User>;
+  friends: Array<User>
+
 
   formData:User
   readonly rootURL = 'http://localhost:51185/api'
 
   constructor(private http:HttpClient) {
+
     localStorage.removeItem("user")
     if(localStorage.getItem("user") == null)
     {
@@ -29,15 +35,13 @@ export class UserService {
         this.userSource  = new BehaviorSubject<User>(this.tempUser);
         this.currentUser = this.userSource.asObservable(); 
     }
+
+    this.getRequestsFromDb(this.tempUser).subscribe(users => this.requestUsers = users)
+    this.getFriends(this.tempUser).subscribe(friends => this.friends = friends)
+
    }
 
-   
-  postUser(user:User)
-  {
-    return this.http.post(this.rootURL + '/Users', user)
-  }
-
-
+  
   changeType(type : string) {
     this.tempUser.type = type;
     this.userSource.next(this.tempUser);
@@ -57,7 +61,6 @@ export class UserService {
       username: user.username,
       type: user.type,
     }));
-
   }
 
   UserFromStorage()
@@ -71,21 +74,57 @@ export class UserService {
   {
     let friendList = new Array<User>();
     let frienListTemp =[];
-    const user1 = new User(1, "Ime", "Prezime", "user123", "nebitno", "adresa", "user", "email@gmail.com", "02151240");
-    const user2 = new User(2, "TempIme", "TempPrezime", "user123", "nebitno", "adresa", "user", "email@gmail.com", "02151240");
-    const user3 = new User(3, "Milan", "Milanovic", "user123", "nebitno", "adresa", "user", "email@gmail.com", "02151240");
-    const user4 = new User(4, "adfg", "gdsg", "user123", "nebitno", "adresa", "user", "email@gmail.com", "02151240");
+    const user1 = new User(2, "Ime", "Prezime", "user123", "nebitno", "adresa", "user", "email@gmail.com", "02151240");
+    const user2 = new User(3, "TempIme", "TempPrezime", "user123", "nebitno", "adresa", "user", "email@gmail.com", "02151240");
+    const user3 = new User(4, "Milan", "Milanovic", "user123", "nebitno", "adresa", "user", "email@gmail.com", "02151240");
+    const user4 = new User(5, "adfg", "gdsg", "user123", "nebitno", "adresa", "user", "email@gmail.com", "02151240");
 
     friendList.push(user1);
     friendList.push(user2);
     friendList.push(user3);
     friendList.push(user4);
 
-    // friendList.forEach(element => {
-    //     frienListTemp.push({name: element.name, lastname: element.lastname});
-    // });
-
     return friendList;
   }
 
+  postUser(user:User)
+  {
+    return this.http.post(this.rootURL + '/Users', user)
+  }
+
+
+  getUsersFromDb(): Observable<User[]>{
+    return this.http.get<User[]>(this.rootURL + '/Users');
+  }
+
+  postFriend(user1:User, user2:User)
+  {
+    var users: User[] = new Array(user1, user2);
+    console.log(users)  
+    return this.http.post(this.rootURL + '/Friends', users);
+  }
+
+  getRequestsFromDb(currentUser: User): Observable<User[]>
+  {
+    let params = new HttpParams();
+    params = params.append('var1', currentUser.id.toString());
+    return this.http.get<User[]>(this.rootURL + '/Friends/Requests', {params : params});
+  }
+
+  getFriends(currentUser:User): Observable<User[]>
+  {
+    let params = new HttpParams();
+    params = params.append('var1', currentUser.id.toString());
+    return this.http.get<User[]>(this.rootURL + '/Friends', {params : params});
+  }
+
+  acceptFriend(id1:number, id2: number)
+  {
+    return this.http.get(this.rootURL + '/Friends/Accept/' + id1 + "/" + id2)
+  }
+
+  removeFriend(id1:number, id2: number)
+  {
+    return this.http.get(this.rootURL + '/Friends/Remove/' + id1 + "/" + id2)
+  }
 }

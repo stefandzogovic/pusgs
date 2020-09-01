@@ -33,6 +33,7 @@ namespace WebAPI
         options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
         options.JsonSerializerOptions.PropertyNamingPolicy = null;
       })
+	  //.AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore)
       .ConfigureApiBehaviorOptions(options =>
       {
         options.SuppressConsumesConstraintForFormFileParameters = true;

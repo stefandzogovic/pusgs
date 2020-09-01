@@ -14,31 +14,79 @@ export class FriendlistComponent implements OnInit {
   constructor(private router: Router, private userService: UserService) { }
 
   searchText;
-  friendList = [];
-  allusers;
+  // friendList = [];
+  allusers = [];
   searchText2;
+  currentUser: User;
+  requestUsers: Array<User>
+  friends: Array<User>
 
 
   ngOnInit(): void {
 
-    this.friendList = this.userService.createFriendUsers();
-
+    // this.friendList = this.userService.createFriendUsers();
+    this.userService.currentUser.subscribe(user => this.currentUser = user)
+    this.requestUsers = this.userService.requestUsers;
+    this.friends = this.userService.friends;
   }
 
-  btnCloseClick(event: Event)
-  {
+  btnCloseClick(event: Event) {
     console.log('Click!', event)
     this.router.navigateByUrl('/profile')
   }
 
-  btnRemoveFriend(user: User)
+  btnAddFriend(user:User)
   {
-    this.friendList.splice(user.id - 1, 1)
     console.log(user)
+    this.userService.postFriend(this.currentUser, user).subscribe(
+      res => {
+        console.log(res)
+      },
+      err => {
+        console.log(err)
+      }
+    )
   }
 
-  modelChange(event: Event)
+  modelChange(event: Event) {
+    console.log(this.currentUser)
+    if (this.searchText2 == "") {
+      this.allusers = []
+    }
+    else {
+      this.userService.getUsersFromDb().subscribe(
+        users => this.allusers = users,
+        err => console.log(err));
+      console.log(this.allusers)
+    }
+  } 
+  
+  btnAcceptFriend(id:number, user:User)
   {
-    console.log('Changed')
+    this.userService.acceptFriend(this.currentUser.id, id).subscribe()
+  
+    const index: number = this.requestUsers.indexOf(user)
+    this.requestUsers.splice(index, 1)
+    this.friends.push(user)
   }
+
+  
+  btnRemoveFriend(id:number, user: User) {
+    this.userService.removeFriend(this.currentUser.id, id).subscribe()
+    const index: number = this.requestUsers.indexOf(user)
+    this.friends.splice(index, 1)
+  }
+
+  getAllRequests()
+  {
+    this.userService.getRequestsFromDb(this.currentUser).subscribe(
+      res => {
+        console.log(res)
+      },
+      err => {
+        console.log(err)
+      }
+    )}
+    
 }
+ 

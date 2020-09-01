@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json.Linq;
 using WebAPI.Contextt;
 using WebAPI.Models;
 
@@ -74,13 +75,15 @@ namespace WebAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/Users
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPost]
+
+		// POST: api/Users
+		// To protect from overposting attacks, enable the specific properties you want to bind to, for
+		// more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+		[HttpPost]
         public async Task<ActionResult<User>> PostUser([FromBody]User user)
         {
-			
+
+			user.Id = 0; //zbog sranja
             _context.userdb.Add(user);
             await _context.SaveChangesAsync();
 

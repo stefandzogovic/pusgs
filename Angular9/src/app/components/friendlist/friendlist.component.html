@@ -1,61 +1,78 @@
 <div class="jw-modal">
-    <div class="jw-modal-body">        
+    <div class="jw-modal-body">
 
         <div class="list-group-item text-center"><span id="friend-list-header">Friend List</span></div>
         <div class="search-hero">
-            <input class="form-control" type="text" name="search" [(ngModel)]="searchText" placeholder="Search by name or lastname" autocomplete="off">
+            <input class="form-control" type="text" name="search" [(ngModel)]="searchText"
+                placeholder="Search by name or lastname" autocomplete="off">
         </div>
         <br>
         <div class="friend-list">
             <ul class="flex-container">
-            
-                <div class="" *ngFor="let user of friendList |filter:searchText">
+
+                <div class="" *ngFor="let user of friends |filter:searchText">
                     <div id="flexbox-item" class="list-group-item text-left">
-                        <span class=""><strong>{{user.name}}</strong></span>
+                        <span class=""><strong>{{user.Name}}</strong></span>
                     </div>
                     <div id="flexbox-item" class="list-group-item text-left">
-                        <span class=""><strong>{{user.lastname}}</strong></span>
+                        <span class=""><strong>{{user.Lastname}}</strong></span>
                     </div>
                     <div id="flexbox-item" class="list-group-item text-left">
-                        <button (click)="btnRemoveFriend(user)" class="btn btn-danger">Remove</button>
+                        <button (click)="btnRemoveFriend(user.Id, user)" class="btn btn-danger">Remove</button>
                     </div>
                 </div>
             </ul>
         </div>
+        <br>
         <div class="list-group-item text-center"><span id="friend-list-header">Add Friend</span></div>
         <div class="search-hero">
-            <input class="form-control" type="text" name="search" [(ngModel)]="searchText2" (ngModelChange)="modelChange($event)" placeholder="Search by name or lastname" autocomplete="off">
+            <input class="form-control" type="text" name="search" [(ngModel)]="searchText2"
+                (ngModelChange)="modelChange($event)" placeholder="Search by name or lastname" autocomplete="off">
         </div>
+        <br>
         <div class="friend-list">
             <ul class="flex-container">
-                
+
                 <div class="flex-container" *ngFor="let user of allusers |filter:searchText2">
-                    <li class="list-group-item text-left">
-                        <div class="list-group-item text-left">
-                            <span class="pull-left"><strong>{{user.name}}</strong></span>
+                    <div *ngIf="user.Id !== currentUser.id">
+                        <div id="flexbox-item" class="list-group-item text-left">
+                            <span class="pull-left"><strong>{{user.Name}}</strong></span>
                         </div>
-                        <div class="list-group-item text-left">
-                            <span class="pull-right"><strong>{{user.lastname}}</strong></span>
+                        <div id="flexbox-item" class="list-group-item text-left">
+                            <span class="pull-right"><strong>{{user.Lastname}}</strong></span>
                         </div>
-                    </li>
+
+                        <div id="flexbox-item" class="list-group-item text-left">
+                            <button (click)="btnAddFriend(user)" class="btn btn-success">Add</button>
+                        </div>
+                    </div>
                 </div>
             </ul>
+            <br>
+
         </div>
         <div class="list-group-item text-center"><span id="friend-list-header">Pending Requests</span></div>
+        <br>
         <div class="friend-list">
             <ul class="flex-container">
-                
-                <div class="flex-container" *ngFor="let user of allusers |filter:searchText2">
-                    <li class="list-group-item text-left">
-                        <div class="list-group-item text-left">
-                            <span class="pull-left"><strong>{{user.name}}</strong></span>
+
+                <div class="flex-container" *ngFor="let user of requestUsers">
+                    <div>
+                        <div id="flexbox-item" class="list-group-item text-left">
+                            <span class="pull-left"><strong>{{user.Name}}</strong></span>
                         </div>
-                        <div class="list-group-item text-left">
-                            <span class="pull-right"><strong>{{user.lastname}}</strong></span>
+                        <div id="flexbox-item" class="list-group-item text-left">
+                            <span class="pull-right"><strong>{{user.Lastname}}</strong></span>
                         </div>
-                    </li>
+
+                        <div id="flexbox-item" class="list-group-item text-left">
+                            <button (click)="btnAcceptFriend(user.Id, user)" class="btn btn-success">Accept</button>
+                        </div>
+                    </div>
                 </div>
             </ul>
+            <br>
+
         </div>
         <button (click)="btnCloseClick($event)" class="btn btn-danger">Close</button>
     </div>

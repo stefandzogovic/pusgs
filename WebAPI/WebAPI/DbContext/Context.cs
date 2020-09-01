@@ -27,10 +27,10 @@ namespace WebAPI.Contextt
 			.HasOne(f => f.FriendUser)
 			.WithMany(mu => mu.Friends)
 		    .HasForeignKey(f => f.FriendUserId);
-
 		}
 
 		public DbSet<User> userdb { get; set; }
+		public DbSet<Friend> frienddb { get; set; }
 
 	}
 }

@@ -41,10 +41,9 @@ export class MyProfileComponent implements OnInit {
     });
   }
   onSubmit(): void{
-    // const result : User  = Object.assign({}, this.contactForm.value);
-    // this.service.UserToStorage(result);
-    // window.alert("Succefully changed.");
-    this.service.postUser(this.currentUser).subscribe(
+    const result : User  = Object.assign({}, this.contactForm.value);
+        
+    this.service.postUser(result).subscribe(
       res => {
         console.log(res)
       },
