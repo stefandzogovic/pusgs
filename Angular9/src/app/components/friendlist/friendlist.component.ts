@@ -37,7 +37,7 @@ export class FriendlistComponent implements OnInit {
 
   btnAddFriend(user:User)
   {
-    console.log(user)
+      
     this.userService.postFriend(this.currentUser, user).subscribe(
       res => {
         console.log(res)

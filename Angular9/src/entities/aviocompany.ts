@@ -2,6 +2,7 @@ import { Destination } from './destinations';
 
 export class AvioCompan
 {
+    id : number;
     name : string;
     description : string;
     destinations: Array<Destination>;

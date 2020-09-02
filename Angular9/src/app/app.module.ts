@@ -11,12 +11,15 @@ import { FooterComponent } from './components/footer/footer.component';
 import {GoogleMapsModule} from '@angular/google-maps';
 import { UserService } from './services/user.service';
 import { FriendlistComponent } from './components/friendlist/friendlist.component';
+import { CountriesService } from './services/countries.service';
+import { DropdownComponent } from './components/dropdown/dropdown.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
+    DropdownComponent,
     HeaderComponent,
     FooterComponent,
     FriendlistComponent,
@@ -30,7 +33,7 @@ import { FriendlistComponent } from './components/friendlist/friendlist.componen
     HttpClientModule
   ],
   bootstrap: [AppComponent],
-  providers: [UserService]
+  providers: [UserService, CountriesService]
 
 })
 export class AppModule { }
