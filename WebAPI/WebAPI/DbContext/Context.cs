@@ -27,6 +27,8 @@ namespace WebAPI.Contextt
 			.HasOne(f => f.FriendUser)
 			.WithMany(mu => mu.Friends)
 		    .HasForeignKey(f => f.FriendUserId);
+
+			builder.Entity<Flight>().HasMany(t => t.Stops).WithOne(y => y.Flight);
 		}
 
 		public DbSet<User> userdb { get; set; }
