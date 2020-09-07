@@ -1,6 +1,8 @@
 
     .jw-modal {
         /* modal container fixed across whole screen */
+        pointer-events: none !important;
+
         position: fixed;
         top: 0;
         right: 0;
@@ -19,6 +21,8 @@
     .jw-modal-body {
         padding: 20px;
         background: #fff;
+        pointer-events: all !important;
+
 
         /* margin exposes part of the modal background */
         margin: 40px;

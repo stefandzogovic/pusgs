@@ -7,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddnewflightComponent implements OnInit {
 
-  constructor() { }
+  private id: number;
+  constructor() { 
+     this.id = window.history.state.navigationId
+  }
 
   ngOnInit(): void {
   }

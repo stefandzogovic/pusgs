@@ -55,6 +55,11 @@ export class AvioprofileComponent implements OnInit {
       })
   }
 
+  addFlight(dest): void
+  {
+    
+  }
+
 }
 
  

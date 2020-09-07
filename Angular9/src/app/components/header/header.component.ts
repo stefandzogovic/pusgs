@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { User } from 'src/entities/user';
 import { UserService } from 'src/app/services/user.service';
+import { ComponentType } from '@angular/cdk/portal';
+import { OverlayService } from 'src/app/services/overlay.service';
 
 @Component({
   selector: 'app-header',
@@ -16,4 +18,9 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.data.currentUser.subscribe(user => this.currentUser = user)
   }
+
+//   open(content: TemplateRef<any> | ComponentType<any> | string) {
+//     const ref = this.overlayService.open(content, null);
+//  }
+
 }

@@ -14,6 +14,7 @@ import { FriendlistComponent } from './components/friendlist/friendlist.componen
 import { CountriesService } from './services/countries.service';
 import { AddnewdestModule } from './components/aviorelated/addnewdestination/addnewdest.module';
 import { AddnewflightComponent } from './components/aviorelated/addnewflight/addnewflight.component';
+import { OverlayModule } from '@angular/cdk/overlay';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { AddnewflightComponent } from './components/aviorelated/addnewflight/add
   ],
   imports: [
     BrowserModule,
+    OverlayModule,
     AddnewdestModule,
     AppRoutingModule,
     FormsModule, ReactiveFormsModule,

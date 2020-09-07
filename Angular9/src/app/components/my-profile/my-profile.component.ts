@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { User } from 'src/entities/user';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms'
 import { UserService } from 'src/app/services/user.service';
+import { OverlayService } from 'src/app/services/overlay.service';
+import { ComponentType } from '@angular/cdk/portal';
 
 
 @Component({
@@ -20,7 +22,6 @@ export class MyProfileComponent implements OnInit {
     private formBuilder: FormBuilder) { 
   }
   
-
   ngOnInit(): void {
     this.service.currentUser.subscribe(user => this.currentUser = user)
     this.contactForm = this.createFormGroupWithBuilder(this.formBuilder);

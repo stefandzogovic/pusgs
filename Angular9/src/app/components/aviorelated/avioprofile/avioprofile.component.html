@@ -55,7 +55,7 @@
   <!-- /.row -->
   <div class="collapse" id="collapseExample" *ngFor="let item of aviocompany.Destinations">
     <h4 class="card-title">{{item.Ascenddest}} - {{item.Descenddest}} 
-      <a href="#" class="btn btn-primary mr-1">Add a flight</a>
+      <button routerLink="/avioprofile/destination/{{item.DestinationId}}/addnewflight" [state]="{ example: item}" class="btn btn-primary md-1">Add Flight</button>
       <button (click)="deleteDestination(item)" class="btn btn-danger">Delete</button>
    </h4>
     <div class="row">

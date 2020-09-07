@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, TemplateRef, Type } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, FormBuilder } from '@angular/forms'
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/entities/user';
+import {OverlayModule, Overlay, OverlayConfig} from '@angular/cdk/overlay';
+import { TemplatePortal, ComponentPortal } from '@angular/cdk/portal';
+import { MyOverlayRef } from '../my-profile/myoverlayref';
+
 
 @Component({
   selector: 'app-friendlist',
@@ -13,6 +17,7 @@ export class FriendlistComponent implements OnInit {
 
   constructor(private router: Router, private userService: UserService) { }
 
+
   searchText;
   // friendList = [];
   allusers = [];
@@ -21,6 +26,20 @@ export class FriendlistComponent implements OnInit {
   requestUsers: Array<User>
   friends: Array<User>
 
+  // openWithTemplate(tpl: TemplateRef<any>) {
+  //   const configs = new OverlayConfig({
+  //     hasBackdrop: true,
+  //     panelClass: ['modal', 'is-active'],
+  //     backdropClass: 'modal-background'
+  //    });
+
+  //    const overlayRef = this.overlay.create(configs);
+  //    overlayRef.attach(
+  //     new ComponentPortal(OverlayComponent, this.viewContainerRef)
+  //    );     
+
+  
+  // }
 
   ngOnInit(): void {
 
@@ -28,6 +47,7 @@ export class FriendlistComponent implements OnInit {
     this.userService.currentUser.subscribe(user => this.currentUser = user)
     this.requestUsers = this.userService.requestUsers;
     this.friends = this.userService.friends;
+
   }
 
   btnCloseClick(event: Event) {
