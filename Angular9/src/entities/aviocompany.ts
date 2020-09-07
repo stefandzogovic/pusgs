@@ -5,6 +5,7 @@ export class AvioCompan
     id : number;
     name : string;
     description : string;
+    address: string;
     destinations: Array<Destination>;
     
 

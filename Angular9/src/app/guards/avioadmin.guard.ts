@@ -14,9 +14,8 @@ export class AvioadminGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    console.log('does something');
+    // console.log('does something');
     const user = this.data.UserFromStorage();
-    console.log(user);
     if (user.type === 'adminavio' || user.type === 'admin') {
       return true;
     }

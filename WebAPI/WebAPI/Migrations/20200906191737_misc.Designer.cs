@@ -3,58 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAPI.Contextt;
 
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20200906191737_misc")]
+    partial class misc
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("WebAPI.Models.AvioCompany", b =>
-                {
-                    b.Property<int>("AvioCompanyId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("AvioCompanyId");
-
-                    b.ToTable("aviocompanydb");
-
-                    b.HasData(
-                        new
-                        {
-                            AvioCompanyId = 1,
-                            Address = "Adresa Adresa 123A Novi Sad",
-                            Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. A deserunt neque tempore recusandae animi soluta quasi? Asperiores rem dolore eaque vel, porro, soluta unde debitis aliquam laboriosam. Repellat explicabo, maiores!",
-                            Name = "Klisa Airlines"
-                        },
-                        new
-                        {
-                            AvioCompanyId = 2,
-                            Address = "Adresa Adresa 123A Novi Sad",
-                            Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. A deserunt neque tempore recusandae animi soluta quasi? Asperiores rem dolore eaque vel, porro, soluta unde debitis aliquam laboriosam. Repellat explicabo, maiores!",
-                            Name = "Slana Bara Airlines"
-                        });
-                });
 
             modelBuilder.Entity("WebAPI.Models.Destination", b =>
                 {
@@ -66,17 +31,12 @@ namespace WebAPI.Migrations
                     b.Property<string>("Ascenddest")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("AvioCompanyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Descenddest")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("DestinationId");
 
-                    b.HasIndex("AvioCompanyId");
-
-                    b.ToTable("destinationdb");
+                    b.ToTable("Destination");
                 });
 
             modelBuilder.Entity("WebAPI.Models.Flight", b =>
@@ -166,9 +126,6 @@ namespace WebAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("AvioCompanyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -199,18 +156,7 @@ namespace WebAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AvioCompanyId");
-
                     b.ToTable("userdb");
-                });
-
-            modelBuilder.Entity("WebAPI.Models.Destination", b =>
-                {
-                    b.HasOne("WebAPI.Models.AvioCompany", "AvioCompany")
-                        .WithMany("Destinations")
-                        .HasForeignKey("AvioCompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("WebAPI.Models.Flight", b =>
@@ -242,15 +188,6 @@ namespace WebAPI.Migrations
                     b.HasOne("WebAPI.Models.Flight", "Flight")
                         .WithMany("Stops")
                         .HasForeignKey("FlightId");
-                });
-
-            modelBuilder.Entity("WebAPI.Models.User", b =>
-                {
-                    b.HasOne("WebAPI.Models.AvioCompany", "AvioCompany")
-                        .WithMany("Users")
-                        .HasForeignKey("AvioCompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

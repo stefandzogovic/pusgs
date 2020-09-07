@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAPI.Contextt;
 
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20200906192348_aviocompany")]
+    partial class aviocompany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,22 +40,6 @@ namespace WebAPI.Migrations
                     b.HasKey("AvioCompanyId");
 
                     b.ToTable("aviocompanydb");
-
-                    b.HasData(
-                        new
-                        {
-                            AvioCompanyId = 1,
-                            Address = "Adresa Adresa 123A Novi Sad",
-                            Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. A deserunt neque tempore recusandae animi soluta quasi? Asperiores rem dolore eaque vel, porro, soluta unde debitis aliquam laboriosam. Repellat explicabo, maiores!",
-                            Name = "Klisa Airlines"
-                        },
-                        new
-                        {
-                            AvioCompanyId = 2,
-                            Address = "Adresa Adresa 123A Novi Sad",
-                            Description = "Lorem ipsum dolor sit amet, consectetur adipisicing elit. A deserunt neque tempore recusandae animi soluta quasi? Asperiores rem dolore eaque vel, porro, soluta unde debitis aliquam laboriosam. Repellat explicabo, maiores!",
-                            Name = "Slana Bara Airlines"
-                        });
                 });
 
             modelBuilder.Entity("WebAPI.Models.Destination", b =>
@@ -66,7 +52,7 @@ namespace WebAPI.Migrations
                     b.Property<string>("Ascenddest")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("AvioCompanyId")
+                    b.Property<int?>("AvioCompanyId")
                         .HasColumnType("int");
 
                     b.Property<string>("Descenddest")
@@ -166,9 +152,6 @@ namespace WebAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("AvioCompanyId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -199,18 +182,14 @@ namespace WebAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AvioCompanyId");
-
                     b.ToTable("userdb");
                 });
 
             modelBuilder.Entity("WebAPI.Models.Destination", b =>
                 {
-                    b.HasOne("WebAPI.Models.AvioCompany", "AvioCompany")
+                    b.HasOne("WebAPI.Models.AvioCompany", null)
                         .WithMany("Destinations")
-                        .HasForeignKey("AvioCompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AvioCompanyId");
                 });
 
             modelBuilder.Entity("WebAPI.Models.Flight", b =>
@@ -242,15 +221,6 @@ namespace WebAPI.Migrations
                     b.HasOne("WebAPI.Models.Flight", "Flight")
                         .WithMany("Stops")
                         .HasForeignKey("FlightId");
-                });
-
-            modelBuilder.Entity("WebAPI.Models.User", b =>
-                {
-                    b.HasOne("WebAPI.Models.AvioCompany", "AvioCompany")
-                        .WithMany("Users")
-                        .HasForeignKey("AvioCompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

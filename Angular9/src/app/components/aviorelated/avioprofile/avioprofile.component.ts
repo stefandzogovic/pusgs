@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AviocompanyService } from 'src/app/services/aviocompany.service';
 import { AvioCompan } from 'src/entities/aviocompany';
+import { Destination } from 'src/entities/destinations';
+import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-avioprofile',
@@ -19,11 +22,11 @@ export class AvioprofileComponent implements OnInit {
     maxZoom: 15,
     minZoom: 8,
   }
-  aviocompany: AvioCompan;
+  aviocompany;
   
-  constructor(private data: AviocompanyService) { 
-    this.aviocompany = data.aviocompanies[0];
-    console.log(this.aviocompany);
+  constructor(private router: Router, private data: AviocompanyService, private userService: UserService) { 
+    this.aviocompany = userService.currentUser.source.value.aviocompany
+    data.aviocompany = this.aviocompany
   }
 
   ngOnInit(): void {
@@ -35,4 +38,23 @@ export class AvioprofileComponent implements OnInit {
     })
   }
 
+  AddNewDestination(event:Event): void
+  {
+    this.router.navigateByUrl('avioprofile/newdestination')
+  }
+
+  deleteDestination(dest): void
+  {
+    console.log(dest)
+    this.data.dellDest(dest).subscribe(
+      res => {
+        this.aviocompany.Destinations = this.aviocompany.Destinations.filter(item => item !== dest)
+      },
+      err => {
+        console.log(err)
+      })
+  }
+
 }
+
+ 

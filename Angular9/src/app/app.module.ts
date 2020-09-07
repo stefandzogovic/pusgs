@@ -12,20 +12,22 @@ import {GoogleMapsModule} from '@angular/google-maps';
 import { UserService } from './services/user.service';
 import { FriendlistComponent } from './components/friendlist/friendlist.component';
 import { CountriesService } from './services/countries.service';
-import { DropdownComponent } from './components/dropdown/dropdown.component';
+import { AddnewdestModule } from './components/aviorelated/addnewdestination/addnewdest.module';
+import { AddnewflightComponent } from './components/aviorelated/addnewflight/addnewflight.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     routingComponents,
-    DropdownComponent,
     HeaderComponent,
     FooterComponent,
     FriendlistComponent,
+    AddnewflightComponent
   ],
   imports: [
     BrowserModule,
+    AddnewdestModule,
     AppRoutingModule,
     FormsModule, ReactiveFormsModule,
     Ng2SearchPipeModule,

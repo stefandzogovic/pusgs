@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { CountriesService } from 'src/app/services/countries.service';
 
 @Component({
@@ -38,6 +38,4 @@ export class DropdownComponent implements OnInit {
   onChangeState(stateValue) {
     this.cityInfo=this.stateInfo[stateValue].cities;
   }
-    
-
 }

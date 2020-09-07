@@ -3,8 +3,8 @@
   <div class="container h-100">
     <div class="row h-100 align-items-center">
       <div class="col-lg-12">
-        <h1 class="display-4 text-white mt-5 mb-2">{{aviocompany.name}}</h1>
-        <p class="lead mb-5 text-white-50">{{aviocompany.description}}</p>
+        <h1 class="display-4 text-white mt-5 mb-2">{{aviocompany.Name}}</h1>
+        <p class="lead mb-5 text-white-50">{{aviocompany.Description}}</p>
       </div>
     </div>
   </div>
@@ -17,26 +17,16 @@
     <div class="col-md-8">
       <h2>What We Do</h2>
       <hr>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A deserunt neque tempore recusandae animi soluta
-        quasi? Asperiores rem dolore eaque vel, porro, soluta unde debitis aliquam laboriosam. Repellat explicabo,
-        maiores!</p>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis optio neque consectetur consequatur magni in
-        nisi, natus beatae quidem quam odit commodi ducimus totam eum, alias, adipisci nesciunt voluptate. Voluptatum.
-      </p>
-      <div class="col-md-8 mb-5">
-        <button class="btn btn-primary btn-lg" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-          Flights
-        </button>
-        <hr/>
-      </div>
+      <p>{{aviocompany.Description}}</p>
+ 
+
     </div>
     <div class="col-md-4 mb-5">
       <h2>Contact Us</h2>
       <hr>
       <address>
         <strong>Address</strong>
-        <br>3481 Melrose Place
-        <br>Beverly Hills, CA 90210
+        <br>{{aviocompany.Address}}
         <br>
       </address>
       <address>
@@ -48,20 +38,31 @@
       </address>
       <div class="container-maps">
         <div class="container-maps-one">
-          <google-map style="position: relative;" height="200px" width="100%" [zoom]="zoom" [center]="center" [options]="options"></google-map>
+          <google-map style="position: relative;" height="150px" width="100%" [zoom]="zoom" [center]="center" [options]="options"></google-map>
         </div>
       </div>
     </div>
   </div>
+  <div class="col-md-8 mb-5">
+    <button class="btn btn-primary btn-lg mr-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      Destinations
+    </button>
+    <button id="pad" class="btn btn-primary btn-sml" type="button" (click)="AddNewDestination($event)" >
+      Add new destination
+    </button> 
+    <hr/>
+  </div>
   <!-- /.row -->
-  <div class="collapse" id="collapseExample" *ngFor="let item of aviocompany.destinations">
-    <h4 class="card-title">{{item.ascenddest}} - {{item.descenddest}} <a href="#" class="btn btn-primary">Add a
-        flight</a> </h4>
+  <div class="collapse" id="collapseExample" *ngFor="let item of aviocompany.Destinations">
+    <h4 class="card-title">{{item.Ascenddest}} - {{item.Descenddest}} 
+      <a href="#" class="btn btn-primary mr-1">Add a flight</a>
+      <button (click)="deleteDestination(item)" class="btn btn-danger">Delete</button>
+   </h4>
     <div class="row">
 
       <div *ngFor="let flight of item.flights" class="col-md-4 mb-5">
         <div class="card h-100">
-          <div class="row card-body">
+          <div class="row card-body"> 
             <div class="col-sm-6">
               <h4 class="card-title"></h4>
               <p class="card-text">{{flight.dtascend}}</p>
@@ -86,7 +87,6 @@
       </div>
 
     </div>
-    <!-- /.row -->
 
   </div>
   <!-- /.container -->

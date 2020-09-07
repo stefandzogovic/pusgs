@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAPI.Contextt;
 
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20200906231106_misc_1")]
+    partial class misc_1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,7 +68,7 @@ namespace WebAPI.Migrations
                     b.Property<string>("Ascenddest")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("AvioCompanyId")
+                    b.Property<int?>("AvioCompanyId")
                         .HasColumnType("int");
 
                     b.Property<string>("Descenddest")
@@ -206,11 +208,9 @@ namespace WebAPI.Migrations
 
             modelBuilder.Entity("WebAPI.Models.Destination", b =>
                 {
-                    b.HasOne("WebAPI.Models.AvioCompany", "AvioCompany")
+                    b.HasOne("WebAPI.Models.AvioCompany", null)
                         .WithMany("Destinations")
-                        .HasForeignKey("AvioCompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("AvioCompanyId");
                 });
 
             modelBuilder.Entity("WebAPI.Models.Flight", b =>

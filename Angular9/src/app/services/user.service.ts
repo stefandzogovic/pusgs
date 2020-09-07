@@ -2,14 +2,15 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User } from 'src/entities/user';
 import { HttpClient, HttpParams} from "@angular/common/http"
+import { AvioCompan } from 'src/entities/aviocompany';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  // private tempUser = new User(1, "Stefan", "Dzogovic", "dzogara123", "dzogara123", "adresa", "user", "mojemail@gmail.com", "0649772931");
-  private tempUser = new User(3, "Ime", "Prezime", "dzogara123", "password", "adresasa", "user", "mail@gmail.com", "0649774215212931");
+  private tempUser = new User(1, "Stefan", "Dzogovic", "dzogara123", "dzogara123", "adresa", "user", "mojemail@gmail.com", "0649772931");
+  // private tempUser = new User(3, "Ime", "Prezime", "dzogara123", "password", "adresasa", "user", "mail@gmail.com", "0649774215212931");
 
   private userSource;
   currentUser;
@@ -43,9 +44,20 @@ export class UserService {
 
   
   changeType(type : string) {
+    if(type == 'adminavio')
+    {
+      this.tempUser.type = type;
+      this.http.get<AvioCompan>(this.rootURL + '/AvioCompanies/1').subscribe(x => this.tempUser.aviocompany = x)
+      console.log(this.tempUser)
+      this.userSource.next(this.tempUser);
+      this.UserToStorage(this.tempUser);
+    }
+    else
+    {
     this.tempUser.type = type;
     this.userSource.next(this.tempUser);
     this.UserToStorage(this.tempUser);
+    }
   }
 
   UserToStorage(user : User)

@@ -7,3 +7,8 @@
 {
     height: 200px !important;
 }
+
+#pad .btn .btn-primary .btn-sml
+{
+    left: 150px !important;
+}

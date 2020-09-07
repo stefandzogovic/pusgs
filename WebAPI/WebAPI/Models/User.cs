@@ -25,15 +25,13 @@ namespace WebAPI.Models
 		public string Phone { get; set; }
 		[Required]
 		public string Type { get; set; }
+		
+		public int AvioCompanyId { get; set; }
+		public AvioCompany AvioCompany { get; set; }
 
 		public virtual ICollection<Friend> MainUserFriends { get; set; }
 
 		public virtual ICollection<Friend> Friends { get; set; }
-		//public Sex sex { get; set; }
-		//public Role role { get; set; }
-		//public List<Apartment> apartments { get; set; }
-
-		//public bool IsDeleted { get; set; } = false;
 
 		public User()
 		{

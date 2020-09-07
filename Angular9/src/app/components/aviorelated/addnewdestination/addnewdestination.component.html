@@ -1,0 +1,53 @@
+<div class="row">
+
+    <div class="col-md-4 col-xs-12 offset-md-2" id="exp">
+        <h1>Start</h1>
+        <div class="border">
+            <div class="form-group">
+                <label>Select Country</label>
+                <select [(ngModel)]="CountryCity[0]" class="form-control" (ngModelChange)="onChangeCountry1($event)">
+                    <option *ngIf="CountryCity[0]" value="-1">--Select Country--</option>
+                    <option *ngFor="let country of countryInfo1" [ngValue]="country">{{country.type}}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Select City</label>
+                <select [(ngModel)]="CountryCity[1]" class="form-control">
+                    <option *ngIf="cityInfo1" value="-1">--Select City--</option>
+                    <option *ngFor="let city of cityInfo1; let k = index" value="{{k}}" [ngValue]="city">{{city}}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-4 col-xs-12">
+        <h1>Destination</h1>
+        <div class="border">
+
+            <div class="form-group">
+                <label>Select Country</label>
+                <select [(ngModel)]="CountryCity[2]" class="form-control" (ngModelChange)="onChangeCountry2($event)">
+                    <option *ngIf="CountryCity[0]" value="-1">--Select Country--</option>
+                    <option *ngFor="let country of countryInfo2" [ngValue]="country">{{country.type}}</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Select City</label>
+                <select [(ngModel)]="CountryCity[3]" class="form-control">
+                    <option *ngIf="cityInfo2" value="-1">--Select City--</option>
+                    <option *ngFor="let city of cityInfo2; let k = index" value="{{k}}" [ngValue]="city">{{city}}
+                    </option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4 col-xs-12 offset-md-3" id="exp">
+        <button class="btn btn-success" (click)="btnAddNewDest()">Add New</button>
+    </div>
+</div>

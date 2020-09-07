@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Text.Json.Serialization;
+
 
 namespace WebAPI.Models
 {
@@ -13,6 +15,12 @@ namespace WebAPI.Models
 		public string State { get; set; }
 
 		public int? FlightId { get; set; }
+		[JsonIgnore]
 		public Flight Flight { get; set; }
+
+		public Stop()
+		{
+
+		}
 	}
 }
