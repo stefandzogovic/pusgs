@@ -11,5 +11,6 @@ export class Destination
     {
         this.ascenddest = ascenddest;
         this.descenddest = descenddest;
+        this.flights = new Array<Flight>();
     }
 }

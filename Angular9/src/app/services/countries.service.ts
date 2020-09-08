@@ -12,6 +12,6 @@ export class CountriesService {
 
   constructor(private http:HttpClient) { }
   allCountries(): Observable<any>{
-    return this.http.get("/assets/countries.json");
+    return this.http.get<any>("/assets/countries.json");
   }
 }

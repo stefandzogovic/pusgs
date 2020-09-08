@@ -11,8 +11,6 @@ namespace WebAPI.Models
 	{
 		public int StopId { get; set; }
 		public string City { get; set; }
-		public string Country { get; set; }
-		public string State { get; set; }
 
 		public int? FlightId { get; set; }
 		[JsonIgnore]

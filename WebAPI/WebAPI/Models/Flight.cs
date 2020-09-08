@@ -11,7 +11,7 @@ namespace WebAPI.Models
 		public int FlightId { get; set; }
 		public string Dtaascend { get; set; }
 		public string Dtadescend { get; set; }
-		public int Duration { get; set; }
+		public string Duration { get; set; }
 		public double Distance { get; set; }
 		public int Ticketprice { get; set; }
 		public List<Stop> Stops { get; set; }

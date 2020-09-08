@@ -60,12 +60,12 @@
    </h4>
     <div class="row">
 
-      <div *ngFor="let flight of item.flights" class="col-md-4 mb-5">
+      <div *ngFor="let flight of item.Flights" class="col-md-4 mb-5">
         <div class="card h-100">
           <div class="row card-body"> 
             <div class="col-sm-6">
               <h4 class="card-title"></h4>
-              <p class="card-text">{{flight.dtascend}}</p>
+              <p class="card-text text-center">{{flight.Dtaascend}}</p>
               <p class="card-text text-center">Ticket Price: </p>
               <p class="card-text text-center">Number of stops: </p>
               <p class="card-text text-center">Duration: </p>
@@ -76,11 +76,11 @@
             </div>
             <div class="col-sm-6">
               <h4 class="card-title"></h4>
-              <p class="card-text">{{flight.dtdescend}}</p>
-              <p class="card-text">{{flight.ticketprice}}$</p>
-              <p class="card-text">{{flight.stops.length}}</p>
-              <p class="card-text">{{flight.duration}}h</p>
-              <p class="card-text">{{flight.distance}}km</p>
+              <p class="card-text">{{flight.Dtadescend}}</p>
+              <p class="card-text">{{flight.Ticketprice}}$</p>
+              <div class="card-text"><div *ngFor="let stop of flight.Stops">{{stop.City}}</div></div>
+              <p class="card-text">{{flight.Duration}}h</p>
+              <p class="card-text">{{flight.Distance}}km</p>
             </div>
           </div>
         </div>

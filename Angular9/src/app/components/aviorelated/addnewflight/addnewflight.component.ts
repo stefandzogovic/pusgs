@@ -1,4 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { CountriesService } from 'src/app/services/countries.service';
+import { AviocompanyService } from 'src/app/services/aviocompany.service';
+import { Flight } from 'src/entities/flight';
+import { Stop } from 'src/entities/stop';
+import { HttpClient } from '@angular/common/http';
+import {Observable} from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-addnewflight',
@@ -8,11 +19,68 @@ import { Component, OnInit } from '@angular/core';
 export class AddnewflightComponent implements OnInit {
 
   private id: number;
-  constructor() { 
-     this.id = window.history.state.navigationId
+  dropdownList = []
+  flight: Flight = new Flight();
+  selectedItems = []
+  selected;
+  dropdownSettings: IDropdownSettings;  angForm: FormGroup;
+
+  constructor(private fb: FormBuilder, private countryservice: CountriesService, private avioCompanyService: AviocompanyService,  private userservice: UserService, private router: Router) {
+    this.id = window.history.state.navigationId
+    this.createForm()
   }
 
+  createForm() {
+    this.angForm = this.fb.group({
+      Dtaascend: ['', Validators.required],
+      Dtadescend: ['', Validators.required],
+      Distance: ['', Validators.required],
+      Ticketprice: ['', Validators.required]
+    });
+  }
   ngOnInit(): void {
+    this.getData()
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'item_id',
+      textField: 'item_text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
   }
 
+  onSelected($event) {
+
+    this.selected = $event;
+  }
+
+  getData(): void {
+    let tmp = [];
+    this.countryservice.allCountries().subscribe(data => {
+      data = Object.keys(data)
+      for(let i=0; i < data.length; i++) {
+        tmp.push({ item_id: i, item_text: data[i]});
+      } 
+
+      this.dropdownList = tmp;
+    });
+  }
+
+  submitForm() {
+    this.flight.dtaascend = this.angForm.value.Dtaascend
+    this.flight.dtadescend = this.angForm.value.Dtadescend
+    this.flight.distance = this.angForm.value.Distance
+    this.flight.ticketprice = this.angForm.value.Ticketprice
+    this.flight.stops.push(new Stop(this.selected.item_text))
+
+    this.avioCompanyService.postFlight(this.id, this.flight).subscribe(data2 => {
+
+      this.userservice.currentUser.source.value.aviocompany.Destinations.find(i => i.DestinationId == this.id).Flights.push(data2)
+      this.router.navigateByUrl('/avioprofile')}
+    )
+
+  }
 }

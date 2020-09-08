@@ -14,5 +14,6 @@ export class AvioCompan
         this.name = name;
         this.description = description;
         this.destinations = destinations;
+        destinations = new Array<Destination>();
     }
 }

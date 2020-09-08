@@ -7,6 +7,7 @@ import { FriendlistComponent } from './components/friendlist/friendlist.componen
 import { AvioprofileComponent } from './components/aviorelated/avioprofile/avioprofile.component';
 import { AddnewdestinationComponent } from './components/aviorelated/addnewdestination/addnewdestination.component';
 import { EditflightComponent } from './components/aviorelated/editflight/editflight.component';
+import { AddnewflightComponent } from './components/aviorelated/addnewflight/addnewflight.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent },
@@ -24,7 +25,8 @@ const routes: Routes = [
     children: [
       { path: "", component: AvioprofileComponent},
       { path: "editflight/:id", component: EditflightComponent},
-      { path: "newdestination", component: AddnewdestinationComponent}
+      { path: "newdestination", component: AddnewdestinationComponent},
+      {path: "destination/:id/addnewflight", component: AddnewflightComponent}
     ],
   }
 ];

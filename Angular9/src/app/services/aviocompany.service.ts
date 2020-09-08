@@ -50,12 +50,18 @@ export class AviocompanyService {
   // }
 
   postDest(destination: Destination) {
-    console.log(this.aviocompany)
     return this.http.post(this.rootURL + '/AvioCompanies/AddNewDestination/' + this.aviocompany.AvioCompanyId, destination)
   }
 
   dellDest(destination)
   {
     return this.http.delete(this.rootURL + '/AvioCompanies/Destination/' + destination.DestinationId)
+  }
+
+  postFlight(id: number, flight: Flight)
+  {
+   var  x = this.http.post(this.rootURL + '/AvioCompanies/AddNewFlight/' + id, flight)
+   this.Source.next(x)
+   return x;
   }
 }

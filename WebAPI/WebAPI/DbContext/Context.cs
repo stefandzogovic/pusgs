@@ -49,8 +49,8 @@ namespace WebAPI.Contextt
 		public DbSet<User> userdb { get; set; }
 		public DbSet<Friend> frienddb { get; set; }
 		public DbSet<WebAPI.Models.Destination> destinationdb { get; set; }
-
 		public DbSet<AvioCompany> aviocompanydb { get; set; }
+		public DbSet<Flight> flightsdb { get; set; }
 
 	}
 }

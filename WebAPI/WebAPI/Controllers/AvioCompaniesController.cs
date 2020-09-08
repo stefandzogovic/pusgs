@@ -32,7 +32,7 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<AvioCompany>> GetAvioCompany(int id)
         {
-            var avioCompany = await _context.aviocompanydb.Where(x => x.AvioCompanyId == id).Include("Destinations.Flights").FirstOrDefaultAsync();
+            var avioCompany = await _context.aviocompanydb.Where(x => x.AvioCompanyId == id).Include("Destinations.Flights.Stops").FirstOrDefaultAsync();
 
             if (avioCompany == null)
             {
@@ -75,12 +75,25 @@ namespace WebAPI.Controllers
         }
 
 		[HttpPost("AddNewDestination/{id}")]
-		public async Task<ActionResult<Destination>> PutDestination(int id, [FromBody] Destination destination)
+		public async Task<ActionResult<Destination>> PostDestination(int id, [FromBody] Destination destination)
 		{
 			var company = await _context.aviocompanydb.FindAsync(id);
 			destination.AvioCompany = company;
 			destination.AvioCompanyId = company.AvioCompanyId;
 			_context.destinationdb.Add(destination);
+			await _context.SaveChangesAsync();
+
+			return CreatedAtAction("G", new { id = destination.DestinationId }, destination);
+		}
+
+		[HttpPost("AddNewFlight/{id}")]
+		public async Task<ActionResult<Flight>> PostFlight(int id, [FromBody] Flight flight)
+		{
+			var destination = await _context.destinationdb.FindAsync(id);
+			flight.Destination = destination;
+			flight.DestinationId = destination.DestinationId;
+			flight.Duration = TimeToInt(flight.Dtaascend, flight.Dtadescend);
+			_context.flightsdb.Add(flight);
 			await _context.SaveChangesAsync();
 
 			return CreatedAtAction("GetAvioCompany", new { id = destination.DestinationId }, destination);
@@ -133,5 +146,15 @@ namespace WebAPI.Controllers
         {
             return _context.aviocompanydb.Any(e => e.AvioCompanyId == id);
         }
-    }
+
+		private string TimeToInt(string input1, string input2)
+		{
+			TimeSpan duration = DateTime.Parse(input2).Subtract(DateTime.Parse(input1));
+			if (duration < TimeSpan.Zero)
+			{
+				duration = duration + TimeSpan.FromDays(1);
+			}
+			return duration.ToString();
+		}
+	}
 }
