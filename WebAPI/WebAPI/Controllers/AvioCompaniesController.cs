@@ -25,7 +25,12 @@ namespace WebAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AvioCompany>>> Getaviocompanydb()
         {
-            return await _context.aviocompanydb.ToListAsync();
+            return await _context.aviocompanydb.Include(y => y.Destinations)
+					.ThenInclude(z => z.Flights)
+						.ThenInclude(g => g.Stops)
+				.Include(y => y.Destinations)
+					.ThenInclude(z => z.Flights)
+						.ThenInclude(g => g.Seats).ToListAsync();
         }
 
         // GET: api/AvioCompanies/5
@@ -122,7 +127,7 @@ namespace WebAPI.Controllers
 			_context.destinationdb.Add(destination);
 			await _context.SaveChangesAsync();
 
-			return CreatedAtAction("G", new { id = destination.DestinationId }, destination);
+			return CreatedAtAction("GetAvioCompany", new { id = destination.DestinationId }, destination);
 		}
 
 		[HttpPost("AddNewFlight/{id}")]
@@ -135,7 +140,7 @@ namespace WebAPI.Controllers
 			_context.flightsdb.Add(flight);
 			await _context.SaveChangesAsync();
 
-			return CreatedAtAction("GetAvioCompany", new { id = destination.DestinationId }, destination);
+			return CreatedAtAction("GetAvioCompany", new { id = flight.FlightId }, flight);
 		}
 
 		// POST: api/AvioCompanies
@@ -150,8 +155,22 @@ namespace WebAPI.Controllers
             return CreatedAtAction("GetAvioCompany", new { id = avioCompany.AvioCompanyId }, avioCompany);
         }
 
-        // DELETE: api/AvioCompanies/5
-        [HttpDelete("{id}")]
+		[HttpDelete("Flight/{id}")]
+		public async Task<ActionResult<Flight>> DeleteFlight(int id)
+		{
+			var flight = await _context.flightsdb.FindAsync(id);
+			if (flight == null)
+			{
+				return NotFound();
+			}
+
+			_context.flightsdb.Remove(flight);
+			await _context.SaveChangesAsync();
+
+			return flight;
+		}
+		// DELETE: api/AvioCompanies/5
+		[HttpDelete("{id}")]
         public async Task<ActionResult<AvioCompany>> DeleteAvioCompany(int id)
         {
             var avioCompany = await _context.aviocompanydb.FindAsync(id);

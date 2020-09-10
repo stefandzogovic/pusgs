@@ -40,9 +40,16 @@ export class AvioprofileComponent implements OnInit {
   }
 
 
-  delete_flight(flight): void
+  delete_flight(flight)
   {
-
+    console.log(flight)
+    this.data.delFlight(flight).subscribe(
+      res => {
+        this.aviocompany.Destinations.find(dest => dest.DestinationId === flight.DestinationId).Flights = this.aviocompany.Destinations.find(dest => dest.DestinationId === flight.DestinationId).Flights.filter(x => x !== flight)
+      },
+      err => {
+        console.log(err)
+      })
   }
   AddNewDestination(event:Event): void
   {
@@ -51,7 +58,6 @@ export class AvioprofileComponent implements OnInit {
 
   deleteDestination(dest): void
   {
-    console.log(dest)
     this.data.dellDest(dest).subscribe(
       res => {
         this.aviocompany.Destinations = this.aviocompany.Destinations.filter(item => item !== dest)

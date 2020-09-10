@@ -92,12 +92,10 @@
               <p class="card-text">
               <ngb-rating [max]="5" rate="{{flight.Stars}}" [readonly]="true"></ngb-rating>
               </p> 
-              <p class="card-text">
 
-                <button class="btn btn-danger " (onClick)="delete_flight(flight)">
+                <button class="btn btn-danger " (click)="delete_flight(flight)">
                   Delete
                 </button>
-              </p>
             </div>
           </div>
         </div>

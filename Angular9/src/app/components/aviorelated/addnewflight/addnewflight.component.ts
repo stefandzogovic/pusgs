@@ -29,7 +29,7 @@ export class AddnewflightComponent implements OnInit {
   angForm: FormGroup;
 
   constructor(private fb: FormBuilder, private countryservice: CountriesService, private avioCompanyService: AviocompanyService, private userservice: UserService, private router: Router) {
-    this.id = window.history.state.navigationId
+    this.id = window.history.state.example.DestinationId
     this.createForm()
     var x = ['A', 'B', 'C', 'D', 'E', 'F']
     var y = 0
@@ -98,7 +98,8 @@ export class AddnewflightComponent implements OnInit {
 
     this.avioCompanyService.postFlight(this.id, this.flight).subscribe(data2 => {
 
-      this.userservice.currentUser.source.value.aviocompany.Destinations.find(i => i.DestinationId == this.id).Flights.push(data2)
+      console.log(data2)
+      this.userservice.currentUser.source.value.aviocompany.Destinations.find(i => i.DestinationId === this.id).Flights.push(data2)
       this.router.navigateByUrl('/avioprofile')}
     )
 

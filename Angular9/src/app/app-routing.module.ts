@@ -28,7 +28,9 @@ const routes: Routes = [
       { path: "newdestination", component: AddnewdestinationComponent},
       {path: "destination/:id/addnewflight", component: AddnewflightComponent}
     ],
-  }
+  },
+  { path: 'aviocompany/:id', component:AvioprofileComponent}
+  
 ];
 
 @NgModule({

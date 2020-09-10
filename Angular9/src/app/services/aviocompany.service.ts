@@ -1,10 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { Flight } from 'src/entities/flight';
 import { AvioCompan } from 'src/entities/aviocompany';
 import { Destination } from 'src/entities/destinations';
 import { HttpClient, HttpParams } from "@angular/common/http"
 import { BehaviorSubject } from 'rxjs';
 import { User } from 'src/entities/user';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +13,10 @@ import { User } from 'src/entities/user';
 export class AviocompanyService {
 
   private Source;
+  private Source2;
 
   aviocompany;
-
+  @Input() aviocompanies;
   readonly rootURL = 'http://localhost:51185/api'
 
 
@@ -23,6 +25,8 @@ export class AviocompanyService {
     // this.loadAvioCompany();
     this.Source = new BehaviorSubject<User>(this.aviocompany);
     this.aviocompany = this.Source.asObservable();
+    this.getAvioCompanies()
+    console.log(this.aviocompanies)
   }
 
   // loadAvioCompany() {
@@ -49,6 +53,21 @@ export class AviocompanyService {
   //   return tempflight;
   // }
 
+  delFlight(flight)
+  {
+    return this.http.delete(this.rootURL + '/AvioCompanies/Flight/' + flight.FlightId)
+
+  }
+
+  getAvioCompanies()
+  {
+    this.http.get(this.rootURL +'/AvioCompanies').subscribe(res =>
+      {
+        this.aviocompanies = res
+      }, err => {
+        console.log(err)
+      })
+  }
   postDest(destination: Destination) {
     return this.http.post(this.rootURL + '/AvioCompanies/AddNewDestination/' + this.aviocompany.AvioCompanyId, destination)
   }
