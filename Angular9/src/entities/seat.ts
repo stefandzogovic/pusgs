@@ -1,17 +1,13 @@
 import { Stop } from './stop';
-import { Seat } from './seat';
+import { Flight } from './flight';
 
-export class Flight
+export class Seat
 {
-    flightId: number;
-    dtaascend: string;
-    dtadescend: string;
-    duration: number;
-    distance: number;
-    ticketprice: number;
-    stars: number;
-    stops: Array<Stop>;
-    seats: Array<Seat>;
+   seatId: number;
+   reserved: boolean;
+   name: string;
+   flightId: number;
+   flight: Flight;
 
     // constructor(dtascend: string, dtdescend: string, duration: number, distance: number, ticketprice: number, stops: Array<Stop>)
     // {
@@ -25,8 +21,8 @@ export class Flight
     /**
      *
      */
-    constructor() {
-        this.stops = new Array<Stop>();
-        this.seats = new Array<Seat>();
+    constructor(name: string) {
+        this.reserved = false;
+        this.name = name
     }
 }

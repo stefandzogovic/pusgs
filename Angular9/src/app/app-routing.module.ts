@@ -24,7 +24,7 @@ const routes: Routes = [
      'avioprofile',
     children: [
       { path: "", component: AvioprofileComponent},
-      { path: "editflight/:id", component: EditflightComponent},
+      { path: "destination/:id/editflight/:id", component: EditflightComponent},
       { path: "newdestination", component: AddnewdestinationComponent},
       {path: "destination/:id/addnewflight", component: AddnewflightComponent}
     ],

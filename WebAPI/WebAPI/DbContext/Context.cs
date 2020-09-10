@@ -44,6 +44,8 @@ namespace WebAPI.Contextt
 			.HasForeignKey(f => f.FriendUserId);
 
 			builder.Entity<Flight>().HasMany(t => t.Stops).WithOne(y => y.Flight).OnDelete(DeleteBehavior.Cascade);
+			builder.Entity<Flight>().HasMany(t => t.Seats).WithOne(y => y.Flight).OnDelete(DeleteBehavior.Cascade);
+
 		}
 
 		public DbSet<User> userdb { get; set; }

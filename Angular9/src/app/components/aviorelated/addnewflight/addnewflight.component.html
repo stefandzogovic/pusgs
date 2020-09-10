@@ -2,7 +2,7 @@
     <h1>
         Add new flight
     </h1>
-    <form [formGroup]="angForm"  novalidate>
+    <form [formGroup]="angForm" novalidate>
 
         <div class="form-group">
             <label>Time Ascend:</label>
@@ -46,9 +46,54 @@
         </div>
         <div class="form-group">
             <label>Stops:</label>
-            <ng-multiselect-dropdown [data]="dropdownList" [ngModel]="selectedItems"  [ngModelOptions]="{standalone: true}" [settings]="dropdownSettings" (onSelect)="onSelected($event)">
+            <ng-multiselect-dropdown [data]="dropdownList" [ngModel]="selectedItems"
+                [ngModelOptions]="{standalone: true}" [settings]="dropdownSettings" (onSelect)="onSelected($event)">
             </ng-multiselect-dropdown>
-            {{selectedItems | json}}
+        </div>
+        <div class="form-group">
+            <div class="plane">
+                <div class="cockpit">
+                    <h1>Select reserved seats</h1>
+                </div>
+                <div class="exit exit--front fuselage">
+
+                </div>
+
+                <ol class="cabin fuselage" *ngFor="let item of flight.seats; let i = index">
+                    <div *ngIf="i % 6 == 0 || i == 0">
+                        <li class="row">
+                            <ol class="seats">
+                                <li class="seat">
+                                    <input type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="flight.seats[i].reserved" id="{{flight.seats[i].name}}" />
+                                    <label for="{{flight.seats[i].name}}"> {{flight.seats[i].name}}</label>
+                                </li>
+                                <li class="seat">
+                                    <input type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="flight.seats[i+1].reserved" id="{{flight.seats[i+1].name}}" />
+                                    <label for="{{flight.seats[i+1].name}}"> {{flight.seats[i+1].name}}</label>
+                                </li>
+                                <li class="seat">
+                                    <input type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="flight.seats[i+2].reserved" id="{{flight.seats[i+2].name}}" />
+                                    <label for="{{flight.seats[i+2].name}}">{{flight.seats[i+2].name}}</label>
+                                </li>
+                                <li class="seat">
+                                    <input type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="flight.seats[i+3].reserved" id="{{flight.seats[i+3].name}}" />
+                                    <label for="{{flight.seats[i+3].name}}">{{flight.seats[i+3].name}}</label>
+                                </li>
+                                <li class="seat">
+                                    <input type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="flight.seats[i+4].reserved" id="{{flight.seats[i+4].name}}" />
+                                    <label for="{{flight.seats[i+4].name}}">{{flight.seats[i+4].name}}</label>
+                                </li>
+                                <li class="seat">
+                                    <input type="checkbox" [ngModelOptions]="{standalone: true}" [(ngModel)]="flight.seats[i+5].reserved" id="{{flight.seats[i+5].name}}" />
+                                    <label for="{{flight.seats[i+5].name}}">{{flight.seats[i+5].name}}</label>
+                                </li>
+                            </ol>
+                        </li>
+                    </div>
+                </ol>
+                <div class="exit exit--back fuselage">
+                </div>
+            </div>
         </div>
         <button (click)="submitForm()" [disabled]="angForm.pristine || angForm.invalid" class="btn btn-success">
             Save

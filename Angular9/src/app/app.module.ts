@@ -16,6 +16,7 @@ import { AddnewdestModule } from './components/aviorelated/addnewdestination/add
 import { AddnewflightComponent } from './components/aviorelated/addnewflight/addnewflight.component';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 
@@ -31,6 +32,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
   imports: [
     BrowserModule,
     OverlayModule,
+    NgbModule,
     AddnewdestModule,
     NgMultiSelectDropDownModule.forRoot(),
     AppRoutingModule,

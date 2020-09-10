@@ -32,9 +32,15 @@ namespace WebAPI.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<AvioCompany>> GetAvioCompany(int id)
         {
-            var avioCompany = await _context.aviocompanydb.Where(x => x.AvioCompanyId == id).Include("Destinations.Flights.Stops").FirstOrDefaultAsync();
+			var avioCompany = await _context.aviocompanydb.Where(x => x.AvioCompanyId == id)
+				.Include(y => y.Destinations)
+					.ThenInclude(z => z.Flights)
+						.ThenInclude(g =>g.Stops)
+				.Include(y => y.Destinations)
+					.ThenInclude(z => z.Flights)
+						.ThenInclude(g => g.Seats).FirstOrDefaultAsync();
 
-            if (avioCompany == null)
+            if (avioCompany == null)	
             {
                 return NotFound();
             }
@@ -42,10 +48,43 @@ namespace WebAPI.Controllers
             return avioCompany;
         }
 
-        // PUT: api/AvioCompanies/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
-        [HttpPut("{id}")]
+		// PUT: api/AvioCompanies/5
+		// To protect from overposting attacks, enable the specific properties you want to bind to, for
+		// more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+		[HttpPut("PutFlight/{id}")]
+		public async Task<IActionResult> PutFlight(int id, [FromBody]Flight flight)
+		{
+			if (id != flight.FlightId)
+			{
+				return BadRequest();
+			}
+
+			_context.Entry(flight).State = EntityState.Modified;
+			foreach (var x in flight.Seats)
+			{
+				_context.Entry(x).State = EntityState.Modified;
+			}
+
+			try
+			{
+				await _context.SaveChangesAsync();
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				if (!FlightExists(id))
+				{
+					return NotFound();
+				}
+				else
+				{
+					throw;
+				}
+			}
+
+			return NoContent();
+		}
+
+		[HttpPut("{id}")]
         public async Task<IActionResult> PutAvioCompany(int id, AvioCompany avioCompany)
         {
             if (id != avioCompany.AvioCompanyId)
@@ -146,6 +185,11 @@ namespace WebAPI.Controllers
         {
             return _context.aviocompanydb.Any(e => e.AvioCompanyId == id);
         }
+
+		private bool FlightExists(int id)
+		{
+			return _context.flightsdb.Any(e => e.FlightId == id);
+		}
 
 		private string TimeToInt(string input1, string input2)
 		{

@@ -53,6 +53,10 @@ export class AviocompanyService {
     return this.http.post(this.rootURL + '/AvioCompanies/AddNewDestination/' + this.aviocompany.AvioCompanyId, destination)
   }
 
+  putFlight(flight)
+  {
+    return this.http.put(this.rootURL + '/AvioCompanies/PutFlight/' + flight.FlightId, flight)
+  }
   dellDest(destination)
   {
     return this.http.delete(this.rootURL + '/AvioCompanies/Destination/' + destination.DestinationId)

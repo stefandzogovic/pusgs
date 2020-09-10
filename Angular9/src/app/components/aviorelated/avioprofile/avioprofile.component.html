@@ -18,7 +18,7 @@
       <h2>What We Do</h2>
       <hr>
       <p>{{aviocompany.Description}}</p>
- 
+
 
     </div>
     <div class="col-md-4 mb-5">
@@ -38,54 +38,70 @@
       </address>
       <div class="container-maps">
         <div class="container-maps-one">
-          <google-map style="position: relative;" height="150px" width="100%" [zoom]="zoom" [center]="center" [options]="options"></google-map>
+          <google-map style="position: relative;" height="150px" width="100%" [zoom]="zoom" [center]="center"
+            [options]="options"></google-map>
         </div>
       </div>
     </div>
   </div>
   <div class="col-md-8 mb-5">
-    <button class="btn btn-primary btn-lg mr-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    <button class="btn btn-primary btn-lg mr-1" type="button" data-toggle="collapse" data-target="#collapseExample"
+      aria-expanded="false" aria-controls="collapseExample">
       Destinations
     </button>
-    <button id="pad" class="btn btn-primary btn-sml" type="button" (click)="AddNewDestination($event)" >
+    <button id="pad" class="btn btn-primary btn-sml" type="button" (click)="AddNewDestination($event)">
       Add new destination
-    </button> 
-    <hr/>
+    </button>
+    <hr />
   </div>
   <!-- /.row -->
   <div class="collapse" id="collapseExample" *ngFor="let item of aviocompany.Destinations">
-    <h4 class="card-title">{{item.Ascenddest}} - {{item.Descenddest}} 
-      <button routerLink="/avioprofile/destination/{{item.DestinationId}}/addnewflight" [state]="{ example: item}" class="btn btn-primary md-1">Add Flight</button>
+    <h4 class="card-title">{{item.Ascenddest}} - {{item.Descenddest}}
+      <button routerLink="/avioprofile/destination/{{item.DestinationId}}/addnewflight" [state]="{ example: item}"
+        class="btn btn-primary mr-1">Add Flight</button>
       <button (click)="deleteDestination(item)" class="btn btn-danger">Delete</button>
-   </h4>
+    </h4>
     <div class="row">
 
       <div *ngFor="let flight of item.Flights" class="col-md-4 mb-5">
         <div class="card h-100">
-          <div class="row card-body"> 
+          <div class="row card-body">
             <div class="col-sm-6">
               <h4 class="card-title"></h4>
               <p class="card-text text-center">{{flight.Dtaascend}}</p>
               <p class="card-text text-center">Ticket Price: </p>
-              <p class="card-text text-center">Number of stops: </p>
+              <p class="card-text text-center">Stops: </p>
               <p class="card-text text-center">Duration: </p>
               <p class="card-text text-center">Distance: </p>
-              <button class="btn btn-primary" routerLink="/avioprofile/editflight/{{flight.id}}">
-                Detalji
-              </button>
+              <p class="card-text text-center">User Score: </p>
+              <p class="card-text text-center">
+                <button class="btn btn-primary text-center" routerLink="/avioprofile/destination/{{item.DestinationId}}/editflight/{{flight.FlightId}}" [state]="{ example: item}">
+                  Edit
+                </button>
+              </p>
             </div>
             <div class="col-sm-6">
               <h4 class="card-title"></h4>
               <p class="card-text">{{flight.Dtadescend}}</p>
               <p class="card-text">{{flight.Ticketprice}}$</p>
-              <div class="card-text"><div *ngFor="let stop of flight.Stops">{{stop.City}}</div></div>
+              <div class="card-text">
+                <p *ngFor="let stop of flight.Stops">{{stop.City}}</p>
+              </div>
               <p class="card-text">{{flight.Duration}}h</p>
               <p class="card-text">{{flight.Distance}}km</p>
+              <p class="card-text">
+              <ngb-rating [max]="5" rate="{{flight.Stars}}" [readonly]="true"></ngb-rating>
+              </p> 
+              <p class="card-text">
+
+                <button class="btn btn-danger " (onClick)="delete_flight(flight)">
+                  Delete
+                </button>
+              </p>
             </div>
           </div>
         </div>
       </div>
-
     </div>
 
   </div>

@@ -14,7 +14,9 @@ namespace WebAPI.Models
 		public string Duration { get; set; }
 		public double Distance { get; set; }
 		public int Ticketprice { get; set; }
+		public double Stars { get; set; }
 		public List<Stop> Stops { get; set; }
+		public List<Seat> Seats { get; set; }
 
 		public int DestinationId { get; set; }
 		[JsonIgnore]

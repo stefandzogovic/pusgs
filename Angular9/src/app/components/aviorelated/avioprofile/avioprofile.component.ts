@@ -5,6 +5,7 @@ import { Destination } from 'src/entities/destinations';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service';
 
+
 @Component({
   selector: 'app-avioprofile',
   templateUrl: './avioprofile.component.html',
@@ -38,6 +39,11 @@ export class AvioprofileComponent implements OnInit {
     })
   }
 
+
+  delete_flight(flight): void
+  {
+
+  }
   AddNewDestination(event:Event): void
   {
     this.router.navigateByUrl('avioprofile/newdestination')

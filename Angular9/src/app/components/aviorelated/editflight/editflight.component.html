@@ -1,23 +1,129 @@
-<div class="card h-100">
-    <div class="row card-body">
-        <div class="col-sm-6">
-            <h4 class="card-title"></h4>
-            <p class="card-text text-center">{{flight.dtascend}}</p>
-            <p class="card-text text-center">Ticket Price: </p>
-            <p class="card-text text-center">Number of stops: </p>
-            <p class="card-text text-center">Duration: </p>
-            <p class="card-text text-center">Distance: </p>
-            <button class="btn btn-primary" routerLink="/#">
-                Save
-            </button>
+<div class="container">
+    <h1>
+        Add new flight
+    </h1>
+    <form (ngSubmit)="onSubmit()" #flightForm="ngForm" novalidate>
+
+        <div class="form-group">
+            <label>Time Ascend:</label>
+            <input class="form-control" required id="dtasc" [(ngModel)]="Dtaascend" name="dtasc" #dtasc="ngModel" type="time">
+            <div [hidden]="dtasc.valid || dtasc.pristine" class="alert alert-danger">
+                Dtaasc is required
+            </div>
         </div>
-        <div class="col-sm-6">
-            <h4 class="card-title"></h4>
-            <p class="card-text">{{flight.dtdescend}}</p>
-            <p class="card-text">{{flight.ticketprice}}$</p>
-            <p class="card-text">{{flight.stops.length}}</p>
-            <p class="card-text">{{flight.duration}}h</p>
-            <p class="card-text">{{flight.distance}}km</p>
+        <div class="form-group">
+            <label>Time Descend:</label>
+            <input class="form-control" required id="dtadesc" [(ngModel)]="Dtadescend" name="dtadesc" #dtadesc="ngModel" type="time">
+            <div [hidden]="dtadesc.valid || dtadesc.pristine" class="alert alert-danger">
+                Dtadesc is required
+            </div>
         </div>
-    </div>
+        <div class="form-group">
+            <label>Distance:</label>
+            <input class="form-control" required id="distance" [(ngModel)]="Distance" name="distance" #distance="ngModel" type="number">
+            <div [hidden]="distance.valid || distance.pristine" class="alert alert-danger">
+                Duration is required
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Ticket Price:</label>
+            <input class="form-control" required id="price" [(ngModel)]="Ticketprice" name="price" #price="ngModel" type="number">
+            <div [hidden]="price.valid || price.pristine" class="alert alert-danger">
+                Dtadesc is required
+            </div>
+        </div>
+        <!-- <div *ngIf="angForm.controls['Dtaascend'].invalid && (angForm.controls['Dtaascend'].dirty || angForm.controls['Dtaascend'].touched)"
+            class="alert alert-danger">
+            <div *ngIf="angForm.controls['Dtaascend'].errors.required">
+                Time Ascend is required.
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Time Descend:</label>
+            <input class="form-control" formControlName="Dtadescend" type="time">
+        </div>
+        <div *ngIf="angForm.controls['Dtadescend'].invalid && (angForm.controls['Dtadescend'].dirty || angForm.controls['Dtadescend'].touched)"
+            class="alert alert-danger">
+            <div *ngIf="angForm.controls['Dtadescend'].errors.required">
+                Time Descend is required.
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Distance:</label>
+            <input class="form-control" formControlName="Distance" type="number">
+        </div>
+        <div *ngIf="angForm.controls['Distance'].invalid && (angForm.controls['Distance'].dirty || angForm.controls['Distance'].touched)"
+            class="alert alert-danger">
+            <div *ngIf="angForm.controls['Distance'].errors.required">
+                Distance is required.
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Ticket Price:</label>
+            <input class="form-control" formControlName="Ticketprice" type="number">
+        </div>
+        <div *ngIf="angForm.controls['Ticketprice'].invalid && (angForm.controls['Ticketprice'].dirty || angForm.controls['Ticketprice'].touched)"
+            class="alert alert-danger">
+            <div *ngIf="angForm.controls['Ticketprice'].errors.required">
+                Ticket Price is required.
+            </div>
+        </div> -->
+        <div class="form-group">
+            <label>Stops:</label>
+            <ng-multiselect-dropdown [data]="dropdownList" [ngModel]="placeholderlist"
+            [ngModelOptions]="{standalone: true}"  [settings]="dropdownSettings"
+                (onSelect)="onSelected($event)">
+            </ng-multiselect-dropdown>
+        </div>
+        <div class="form-group">
+            <div class="plane">
+                <div class="cockpit">
+                    <h1>Select reserved Seats</h1>
+                </div>
+                <div class="exit exit--front fuselage">
+
+                </div>
+
+                <ol class="cabin fuselage" *ngFor="let item of flight.Seats; let i = index">
+                    <div *ngIf="i % 6 == 0 || i == 0">
+                        <li class="row">
+                            <ol class="seats">
+                                <li class="seat">
+                                    <input type="checkbox" [ngModelOptions]="{standalone: true}"
+                                        [(ngModel)]="flight.Seats[i].Reserved" id="{{flight.Seats[i].Name}}" />
+                                    <label for="{{flight.Seats[i].Name}}"> {{flight.Seats[i].Name}}</label>
+                                </li>
+                                <li class="seat">
+                                    <input type="checkbox" [ngModelOptions]="{standalone: true}"
+                                        [(ngModel)]="flight.Seats[i+1].Reserved" id="{{flight.Seats[i+1].Name}}" />
+                                    <label for="{{flight.Seats[i+1].Name}}"> {{flight.Seats[i+1].Name}}</label>
+                                </li>
+                                <li class="seat">
+                                    <input type="checkbox"  [ngModelOptions]="{standalone: true}" [(ngModel)]="flight.Seats[i+2].Reserved" id="{{flight.Seats[i+2].Name}}" />
+                                    <label for="{{flight.Seats[i+2].Name}}">{{flight.Seats[i+2].Name}}</label>
+                                </li>
+                                <li class="seat">
+                                    <input type="checkbox"  [ngModelOptions]="{standalone: true}" [(ngModel)]="flight.Seats[i+3].Reserved" id="{{flight.Seats[i+3].Name}}" />
+                                    <label for="{{flight.Seats[i+3].Name}}">{{flight.Seats[i+3].Name}}</label>
+                                </li>
+                                <li class="seat">
+                                    <input type="checkbox"  [ngModelOptions]="{standalone: true}" [(ngModel)]="flight.Seats[i+4].Reserved" id="{{flight.Seats[i+4].Name}}" />
+                                    <label for="{{flight.Seats[i+4].Name}}">{{flight.Seats[i+4].Name}}</label>
+                                </li>
+                                <li class="seat">
+                                    <input type="checkbox"  [ngModelOptions]="{standalone: true}" [(ngModel)]="flight.Seats[i+5].Reserved" id="{{flight.Seats[i+5].Name}}" />
+                                    <label for="{{flight.Seats[i+5].Name}}">{{flight.Seats[i+5].Name}}</label>
+                                </li>
+                            </ol>
+                        </li>
+                    </div>
+                </ol>
+                <div class="exit exit--back fuselage">
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success" [disabled]="!flightForm.form.valid">
+            Edit
+        </button>
+    </form>
 </div>
