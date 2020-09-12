@@ -137,6 +137,8 @@ namespace WebAPI.Controllers
 			flight.Destination = destination;
 			flight.DestinationId = destination.DestinationId;
 			flight.Duration = TimeToInt(flight.Dtaascend, flight.Dtadescend);
+			flight.Dtaascend = flight.Dtaascend.Replace('T', ' ');
+			flight.Dtaascend = flight.Dtaascend.Replace('T', ' ');
 			_context.flightsdb.Add(flight);
 			await _context.SaveChangesAsync();
 
@@ -212,7 +214,7 @@ namespace WebAPI.Controllers
 
 		private string TimeToInt(string input1, string input2)
 		{
-			TimeSpan duration = DateTime.Parse(input2).Subtract(DateTime.Parse(input1));
+			TimeSpan duration = DateTime.Parse(input2.Split('T')[1]).Subtract(DateTime.Parse(input1.Split('T')[1]));
 			if (duration < TimeSpan.Zero)
 			{
 				duration = duration + TimeSpan.FromDays(1);

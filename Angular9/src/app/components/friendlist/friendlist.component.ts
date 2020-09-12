@@ -26,20 +26,36 @@ export class FriendlistComponent implements OnInit {
   requestUsers: Array<User>
   friends: Array<User>
 
-  // openWithTemplate(tpl: TemplateRef<any>) {
-  //   const configs = new OverlayConfig({
-  //     hasBackdrop: true,
-  //     panelClass: ['modal', 'is-active'],
-  //     backdropClass: 'modal-background'
-  //    });
+  sortby: string = '';
+  order: string = 'asc';
 
-  //    const overlayRef = this.overlay.create(configs);
-  //    overlayRef.attach(
-  //     new ComponentPortal(OverlayComponent, this.viewContainerRef)
-  //    );     
+  SortBy(sortby: string) {
+    this.sortby = sortby
+  }
 
-  
-  // }
+  sort(order: string) {
+    this.order = order
+    if (this.sortby == 'Name') {
+      if (this.order === 'asc') {
+        this.searchText.aviocompanies.sort((a, b) => (a.Name > b.Name) ? 1 : -1)
+
+      }
+      else if (this.order === 'desc') {
+        this.searchText.aviocompanies.sort((a, b) => (a.Name > b.Name) ? -1 : 1)
+
+      }
+    }
+    else if (this.sortby == 'City') {
+      if (this.order === 'asc') {
+        this.searchText.aviocompanies.sort((a, b) => (a.Address > b.Name) ? 1 : -1)
+
+      }
+      else if (this.order === 'desc') {
+        this.searchText.aviocompanies.sort((a, b) => (a.Name > b.Name) ? -1 : 1)
+
+      }
+    }
+  }
 
   ngOnInit(): void {
 

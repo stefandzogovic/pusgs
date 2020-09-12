@@ -5,15 +5,15 @@
     <form (ngSubmit)="onSubmit()" #flightForm="ngForm" novalidate>
 
         <div class="form-group">
-            <label>Time Ascend:</label>
-            <input class="form-control" required id="dtasc" [(ngModel)]="Dtaascend" name="dtasc" #dtasc="ngModel" type="time">
+            <label>Date Time Ascend:</label>
+            <input class="form-control" required id="dtasc" [(ngModel)]="Dtaascend" name="dtasc" #dtasc="ngModel" type="datetime-local">
             <div [hidden]="dtasc.valid || dtasc.pristine" class="alert alert-danger">
                 Dtaasc is required
             </div>
         </div>
         <div class="form-group">
-            <label>Time Descend:</label>
-            <input class="form-control" required id="dtadesc" [(ngModel)]="Dtadescend" name="dtadesc" #dtadesc="ngModel" type="time">
+            <label>Date Time Descend:</label>
+            <input class="form-control" required id="dtadesc" [(ngModel)]="Dtadescend" name="dtadesc" #dtadesc="ngModel" type="datetime-local">
             <div [hidden]="dtadesc.valid || dtadesc.pristine" class="alert alert-danger">
                 Dtadesc is required
             </div>
@@ -22,7 +22,7 @@
             <label>Distance:</label>
             <input class="form-control" required id="distance" [(ngModel)]="Distance" name="distance" #distance="ngModel" type="number">
             <div [hidden]="distance.valid || distance.pristine" class="alert alert-danger">
-                Duration is required
+                Distance is required
             </div>
         </div>
         <div class="form-group">
@@ -32,42 +32,6 @@
                 Dtadesc is required
             </div>
         </div>
-        <!-- <div *ngIf="angForm.controls['Dtaascend'].invalid && (angForm.controls['Dtaascend'].dirty || angForm.controls['Dtaascend'].touched)"
-            class="alert alert-danger">
-            <div *ngIf="angForm.controls['Dtaascend'].errors.required">
-                Time Ascend is required.
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Time Descend:</label>
-            <input class="form-control" formControlName="Dtadescend" type="time">
-        </div>
-        <div *ngIf="angForm.controls['Dtadescend'].invalid && (angForm.controls['Dtadescend'].dirty || angForm.controls['Dtadescend'].touched)"
-            class="alert alert-danger">
-            <div *ngIf="angForm.controls['Dtadescend'].errors.required">
-                Time Descend is required.
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Distance:</label>
-            <input class="form-control" formControlName="Distance" type="number">
-        </div>
-        <div *ngIf="angForm.controls['Distance'].invalid && (angForm.controls['Distance'].dirty || angForm.controls['Distance'].touched)"
-            class="alert alert-danger">
-            <div *ngIf="angForm.controls['Distance'].errors.required">
-                Distance is required.
-            </div>
-        </div>
-        <div class="form-group">
-            <label>Ticket Price:</label>
-            <input class="form-control" formControlName="Ticketprice" type="number">
-        </div>
-        <div *ngIf="angForm.controls['Ticketprice'].invalid && (angForm.controls['Ticketprice'].dirty || angForm.controls['Ticketprice'].touched)"
-            class="alert alert-danger">
-            <div *ngIf="angForm.controls['Ticketprice'].errors.required">
-                Ticket Price is required.
-            </div>
-        </div> -->
         <div class="form-group">
             <label>Stops:</label>
             <ng-multiselect-dropdown [data]="dropdownList" [ngModel]="placeholderlist"

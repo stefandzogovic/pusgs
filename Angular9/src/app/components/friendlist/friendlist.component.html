@@ -6,6 +6,15 @@
             <input class="form-control" type="text" name="search" [(ngModel)]="searchText"
                 placeholder="Search by name or lastname" autocomplete="off">
         </div>
+        <div class="btn-group sort-btn">
+            <button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort by: {{sortby}}</button>
+            <button (click)="sort('desc')" *ngIf="order === 'asc'" class="btn btn-primary" data-sort="none"><i class="fa fa-sort-asc"></i></button>
+            <button (click)="sort('asc')" *ngIf="order === 'desc'" class="btn btn-primary" data-sort="none"><i class="fa fa-sort-desc"></i></button>
+            <div class="dropdown-menu">
+                <a *ngIf="sortby === 'Name'" class="dropdown-item active" role="button" tabindex="-1" data-type="alpha">Name</a>
+                <a *ngIf="sortby !== 'Name'" class="dropdown-item" role="button" (click)="SortBy('Name')" tabindex="-1" data-type="alpha">Name</a>
+            </div>
+        </div> 
         <br>
         <div class="friend-list">
             <ul class="flex-container">

@@ -6,7 +6,7 @@
 
         <div class="form-group">
             <label>Time Ascend:</label>
-            <input class="form-control" formControlName="Dtaascend" type="time">
+            <input class="form-control" formControlName="Dtaascend" type="datetime-local">
         </div>
         <div *ngIf="angForm.controls['Dtaascend'].invalid && (angForm.controls['Dtaascend'].dirty || angForm.controls['Dtaascend'].touched)"
             class="alert alert-danger">
@@ -16,7 +16,7 @@
         </div>
         <div class="form-group">
             <label>Time Descend:</label>
-            <input class="form-control" formControlName="Dtadescend" type="time">
+            <input class="form-control" formControlName="Dtadescend" type="datetime-local">
         </div>
         <div *ngIf="angForm.controls['Dtadescend'].invalid && (angForm.controls['Dtadescend'].dirty || angForm.controls['Dtadescend'].touched)"
             class="alert alert-danger">
