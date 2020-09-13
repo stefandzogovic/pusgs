@@ -26,7 +26,7 @@ namespace WebAPI.Models
 		[Required]
 		public string Type { get; set; }
 
-		List<Reservation> Reservations { get; set; }
+		public List<Reservation> Reservations { get; set; }
 		
 		public int AvioCompanyId { get; set; }
 		public AvioCompany AvioCompany { get; set; }

@@ -9,6 +9,8 @@ namespace WebAPI.Models
 	{
 		public int ReservationId { get; set; }
 		public int Passport { get; set; }
+		public int FlightId { get; set; }
+		public Flight Flight { get; set; }
 		public int UserId { get; set; }
 		public User User { get; set; }
 
