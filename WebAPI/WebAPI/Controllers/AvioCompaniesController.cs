@@ -137,8 +137,6 @@ namespace WebAPI.Controllers
 			flight.Destination = destination;
 			flight.DestinationId = destination.DestinationId;
 			flight.Duration = TimeToInt(flight.Dtaascend, flight.Dtadescend);
-			flight.Dtaascend = flight.Dtaascend.Replace('T', ' ');
-			flight.Dtaascend = flight.Dtaascend.Replace('T', ' ');
 			_context.flightsdb.Add(flight);
 			await _context.SaveChangesAsync();
 

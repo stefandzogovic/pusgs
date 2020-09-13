@@ -1,18 +1,31 @@
 <div class="container">
     <h1 class="text-center">Flights</h1>
     <hr>
-    <button class="btn btn-primary btn-lg mr-1" type="button" data-toggle="collapse" data-target="#collapseFlight"
-        aria-expanded="false" aria-controls="collapseFlight">
-        Toggle
-    </button>
+    <div class="btn-group">
+        <button class="btn btn-primary btn-lg mr-1" type="button" data-toggle="collapse" data-target="#collapseFlight"
+            aria-expanded="false" aria-controls="collapseFlight">
+            Toggle
+        </button>
+        <button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">{{typeoftrip}}</button>
+        <div class="dropdown-menu">
+            <a *ngIf="typeoftrip === 'Round-Trip'" class="dropdown-item active" role="button" tabindex="-1"
+                data-type="alpha">Round-Trip</a>
+            <a *ngIf="typeoftrip !== 'Round-Trip'" class="dropdown-item" role="button"
+                (click)="TypeOfTrip('Round-Trip')" tabindex="-1" data-type="alpha">Round-Trip</a>
+            <a *ngIf="typeoftrip === 'One-Way'" class="dropdown-item active" role="button" tabindex="-1"
+                data-type="alpha">One-Way</a>
+            <a *ngIf="typeoftrip !== 'One-Way'" class="dropdown-item" role="button" (click)="TypeOfTrip('One-Way')"
+                tabindex="-1" data-type="alpha">One-Way</a>
+        </div>
+    </div>
     <br>
     <div class="collapse" id="collapseFlight">
-        <div class="container">
+        <div *ngIf="typeoftrip === 'Round-Trip'" class="container">
             <br>
             <div class="row">
-
                 <div id="exp">
-                    <h1>Start</h1>
+                    <h1>To</h1>
                     <div class="border">
                         <div class="form-group">
                             <label>Select Country</label>
@@ -68,7 +81,7 @@
                         <div class="form-group">
                             <label>Time Ascend:</label>
                             <input class="form-control" required id="dtaasc" [(ngModel)]="Dtaasc" name="dtaasc"
-                                #dtaasc="ngModel" type="datetime-local">
+                                #dtaasc="ngModel" type="date">
                             <div [hidden]="dtaasc.valid || dtaasc.pristine" class="alert alert-danger">
                                 Dtaasc is required
                             </div>
@@ -76,7 +89,8 @@
 
                         <div class="form-group">
                             <label>Date Time Descend:</label>
-                            <input class="form-control" required id="dtadesc" [(ngModel)]="Dtadescend" name="dtadesc" #dtadesc="ngModel" type="datetime-local">
+                            <input class="form-control" required id="dtadesc" [(ngModel)]="Dtadescend" name="dtadesc"
+                                #dtadesc="ngModel" type="date">
                             <div [hidden]="dtadesc.valid || dtadesc.pristine" class="alert alert-danger">
                                 Dtadesc is required
                             </div>
@@ -88,8 +102,9 @@
                     <div class="border">
                         <div class="form-group">
                             <label>Baggage kg:</label>
-                            <input class="form-control" required id="baggage" [(ngModel)]="Baggage" name="baggage" placeholder="0"
-                                #baggage="ngModel" type="number" min="0" oninput="this.value = Math.abs(this.value)">
+                            <input class="form-control" required id="baggage" [(ngModel)]="Baggage" name="baggage"
+                                placeholder="0" #baggage="ngModel" type="number" min="0"
+                                oninput="this.value = Math.abs(this.value)">
                             <div [hidden]="baggage.valid || baggage.pristine" class="alert alert-danger">
                                 Baggage is required
                             </div>
@@ -97,8 +112,9 @@
 
                         <div class="form-group">
                             <label>Number of people:</label>
-                            <input class="form-control" required id="people" [(ngModel)]="People" name="people" placeholder="0"
-                                #people="ngModel" type="number" min="0" oninput="this.value = Math.abs(this.value)">
+                            <input class="form-control" required id="people" [(ngModel)]="People" name="people"
+                                placeholder="0" #people="ngModel" type="number" min="0"
+                                oninput="this.value = Math.abs(this.value)">
                             <div [hidden]="people.valid || people.pristine" class="alert alert-danger">
                                 People is required
                             </div>
@@ -108,20 +124,104 @@
 
             </div>
             <div class="row">
-                <div class="btn-group sort-btn">
-                    <button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">Sort by: {{sortby}}</button>
-                    <button (click)="sort('desc')" *ngIf="order === 'asc'" class="btn btn-primary" data-sort="none"><i
-                            class="fa fa-sort-asc"></i></button>
-                    <button (click)="sort('asc')" *ngIf="order === 'desc'" class="btn btn-primary" data-sort="none"><i
-                            class="fa fa-sort-desc"></i></button>
-                    <div class="dropdown-menu">
-                        <a *ngIf="sortby === 'Name'" class="dropdown-item active" role="button" tabindex="-1"
-                            data-type="alpha">Name</a>
-                        <a *ngIf="sortby !== 'Name'" class="dropdown-item" role="button" (click)="SortBy('Name')"
-                            tabindex="-1" data-type="alpha">Name</a>
+                <button class="btn btn-primary ml-2" (click)="Search()">
+                    Search
+                </button>
+            </div>
+        </div>
+        <div *ngIf="typeoftrip === 'One-Way'" class="container">
+            <br>
+            <div class="row">
+                <div id="exp">
+                    <h1>Start</h1>
+                    <div class="border">
+                        <div class="form-group">
+                            <label>Select Country</label>
+                            <select [(ngModel)]="CountryCity[0]" class="form-control"
+                                (ngModelChange)="onChangeCountry1($event)">
+                                <option *ngIf="CountryCity[0]" value="-1">--Select Country--</option>
+                                <option *ngFor="let country of countryInfo1" [ngValue]="country">{{country.type}}
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Select City</label>
+                            <select [(ngModel)]="CountryCity[1]" class="form-control">
+                                <option *ngIf="cityInfo1" value="-1">--Select City--</option>
+                                <option *ngFor="let city of cityInfo1; let k = index" value="{{k}}" [ngValue]="city">
+                                    {{city}}
+                                </option>
+                            </select>
+                        </div>
                     </div>
                 </div>
+                <div>
+                    <h1>Destination</h1>
+                    <div class="border">
+
+                        <div class="form-group">
+                            <label>Select Country</label>
+                            <select [(ngModel)]="CountryCity[2]" class="form-control"
+                                (ngModelChange)="onChangeCountry2($event)">
+                                <option *ngIf="CountryCity[0]" value="-1">--Select Country--</option>
+                                <option *ngFor="let country of countryInfo2" [ngValue]="country">{{country.type}}
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Select City</label>
+                            <select [(ngModel)]="CountryCity[3]" class="form-control">
+                                <option *ngIf="cityInfo2" value="-1">--Select City--</option>
+                                <option *ngFor="let city of cityInfo2; let k = index" value="{{k}}" [ngValue]="city">
+                                    {{city}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div id="exp">
+                    <h1>Times</h1>
+                    <div class="border">
+
+                        <div class="form-group">
+                            <label>Time Ascend:</label>
+                            <input class="form-control" required id="dtaasc" [(ngModel)]="Dtaasc" name="dtaasc"
+                                #dtaasc="ngModel" type="date">
+                            <div [hidden]="dtaasc.valid || dtaasc.pristine" class="alert alert-danger">
+                                Dtaasc is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="exp">
+                    <h1>Misc</h1>
+                    <div class="border">
+                        <div class="form-group">
+                            <label>Baggage kg:</label>
+                            <input class="form-control" required id="baggage" [(ngModel)]="Baggage" name="baggage"
+                                placeholder="0" #baggage="ngModel" type="number" min="0"
+                                oninput="this.value = Math.abs(this.value)">
+                            <div [hidden]="baggage.valid || baggage.pristine" class="alert alert-danger">
+                                Baggage is required
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Number of people:</label>
+                            <input class="form-control" required id="people" [(ngModel)]="People" name="people"
+                                placeholder="0" #people="ngModel" type="number" min="0"
+                                oninput="this.value = Math.abs(this.value)">
+                            <div [hidden]="people.valid || people.pristine" class="alert alert-danger">
+                                People is required
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
                 <button class="btn btn-primary ml-2" (click)="Search()">
                     Search
                 </button>
@@ -134,16 +234,75 @@
                 <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
             </svg>
         </div>
-        <div class="row h-100">
+        <div *ngIf="typeoftrip === 'One-Way'" class="row h-100">
             <div *ngFor="let item of flights" class="col-sm-6">
                 <div class="card">
-                    <h5 class="card-header">Featured</h5>
+                    <h5 class="card-header">{{item.AvioCompany}}</h5>
+                    <h6 class="card-header">{{item.Ascenddest}} - {{item.Descenddest}}</h6>
                     <div class="card-body">
-                        <h5 class="card-title">Special title treatment</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <div class="row">
+                            <h3 class="card-text col-sm-6">Time Ascend: {{item.Dtaascend}}</h3>
+                            <h3 class="card-text col-sm-6">Time Descend: {{item.Dtadescend}}</h3>
+                            <h3 class="card-text col-sm-6">Distance: {{item.Distance}}</h3>
+                            <h3 class="card-text col-sm-6">Duration: {{item.Duration}}h</h3>
+                            <h3 class="card-text  col-sm-6">Ticket Price: {{item.Ticketprice}}$</h3>
+                            <h3 class="card-text  col-sm-6">Stars:
+                                <ngb-rating [max]="5" rate="{{item.Stars}}" [readonly]="true">
+                                </ngb-rating>
+                            </h3>
+                            <h3 class="card-text  col-sm-6">Number of stops: {{item.Stops.length}}
+                            </h3>
+                            <a href="reserve/flight/{{item.FlightId}}" class="btn btn-primary col-sm-2">Reserve</a>
+                        </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div *ngIf="typeoftrip === 'Round-Trip'">
+            <div *ngFor="let item of flights" class="row h-100">
+                <div class="col-sm-6">
+                    <div class="card">
+                        <h5 class="card-header">{{item.item1.AvioCompany}}</h5>
+                        <h6 class="card-header">{{item.item1.Ascenddest}} - {{item.item1.Descenddest}}</h6>
+                        <div class="card-body">
+                            <div class="row">
+                                <h3 class="card-text col-sm-6">Time Ascend: {{item.item1.Dtaascend}}</h3>
+                                <h3 class="card-text col-sm-6">Time Descend: {{item.item1.Dtadescend}}</h3>
+                                <h3 class="card-text col-sm-6">Distance: {{item.item1.Distance}}</h3>
+                                <h3 class="card-text col-sm-6">Duration: {{item.item1.Duration}}h</h3>
+                                <h3 class="card-text  col-sm-6">Ticket Price: {{item.item1.Ticketprice}}$</h3>
+                                <h3 class="card-text  col-sm-6">Stars:
+                                    <ngb-rating [max]="5" rate="{{item.item1.Stars}}" [readonly]="true">
+                                    </ngb-rating>
+                                </h3>
+                                <h3 class="card-text  col-sm-6">Number of stops: {{item.item1.Stops.length}}
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card">
+                        <h5 class="card-header">{{item.item2.AvioCompany}}</h5>
+                        <h6 class="card-header">{{item.item2.Ascenddest}} - {{item.item2.Descenddest}}</h6>
+                        <div class="card-body">
+                            <div class="row">
+                                <h3 class="card-text col-sm-6">Time Ascend: {{item.item2.Dtaascend}}</h3>
+                                <h3 class="card-text col-sm-6">Time Descend: {{item.item2.Dtadescend}}</h3>
+                                <h3 class="card-text col-sm-6">Distance: {{item.item2.Distance}}</h3>
+                                <h3 class="card-text col-sm-6">Duration: {{item.item2.Duration}}h</h3>
+                                <h3 class="card-text  col-sm-6">Ticket Price: {{item.item2.Ticketprice}}$</h3>
+                                <h3 class="card-text  col-sm-6">Stars:
+                                    <ngb-rating [max]="5" rate="{{item.item2.Stars}}" [readonly]="true">
+                                    </ngb-rating>
+                                </h3>
+                                <h3 class="card-text  col-sm-6">Number of stops: {{item.item2.Stops.length}}
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <a href="reserve/flight/{{item.FlightId}}" class="btn btn-primary col-sm-2">Reserve</a>
             </div>
         </div>
     </div>

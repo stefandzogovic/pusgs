@@ -8,6 +8,7 @@ import { AvioprofileComponent } from './components/aviorelated/avioprofile/aviop
 import { AddnewdestinationComponent } from './components/aviorelated/addnewdestination/addnewdestination.component';
 import { EditflightComponent } from './components/aviorelated/editflight/editflight.component';
 import { AddnewflightComponent } from './components/aviorelated/addnewflight/addnewflight.component';
+import { ReservationComponent } from './components/aviorelated/reservation/reservation.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent },
@@ -29,8 +30,9 @@ const routes: Routes = [
       {path: "destination/:id/addnewflight", component: AddnewflightComponent}
     ],
   },
-  { path: 'aviocompany/:id', component:AvioprofileComponent}
-  
+  { path: 'aviocompany/:id', component:AvioprofileComponent},
+  { path: 'reserve/flight/:id', component:ReservationComponent}
+
 ];
 
 @NgModule({

@@ -18,6 +18,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrderModule } from 'ngx-order-pipe';
+import { ReservationComponent } from './components/aviorelated/reservation/reservation.component';
 
 
 
@@ -28,7 +29,8 @@ import { OrderModule } from 'ngx-order-pipe';
     HeaderComponent,
     FooterComponent,
     FriendlistComponent,
-    AddnewflightComponent
+    AddnewflightComponent,
+    ReservationComponent
   ],
   imports: [
     BrowserModule,

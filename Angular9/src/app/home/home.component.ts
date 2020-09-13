@@ -37,6 +37,7 @@ export class HomeComponent implements OnInit {
   flights = []
   Baggage
   People
+  typeoftrip = "Round-Trip"
 
   getCountries() {
     this.country.allCountries().
@@ -86,20 +87,61 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  TypeOfTrip(name) {
+    this.typeoftrip = name
+    this.flights = []
+  }
   Search() {
-    var asc = this.CountryCity[0] + '|' + this.CountryCity[1]
-    var desc = this.CountryCity[1] + '|' + this.CountryCity[2]
-    console.log(this.Dtaasc)
-    this.avioservice.aviocompanies.forEach(element1 => {
-      element1.Destinations.forEach(element2 => {
-        if (element2.Ascenddest == asc || element2.Descenddest == desc) {
-          
-
-          element2.Flights.forEach(element3 => {
-          });
-        }
+    if (this.typeoftrip === 'Round-Trip') {
+      this.flights = []
+      var temp1
+      var found: Boolean = false;
+      var asc = this.CountryCity[0].type + '|' + this.CountryCity[1]
+      var desc = this.CountryCity[2].type + '|' + this.CountryCity[3]
+      this.avioservice.aviocompanies.forEach(element1 => {
+        element1.Destinations.forEach(element2 => {
+          if (element2.Ascenddest === asc && element2.Descenddest === desc) {
+            element2.Flights.forEach(element3 => {
+              if (this.Dtaasc === element3.Dtaascend.split('T')[0] && this.Dtadescend === element3.Dtadescend.split('T')[0]) {
+                if (found === true) {
+                  element3.AvioCompany = element1.Name
+                  element3.Ascenddest = element2.Ascenddest
+                  element3.Descenddest = element2.Descenddest
+                  temp1.item2 = element3
+                  this.flights.push(temp1)
+                  found = false
+                }
+                else {
+                  element3.AvioCompany = element1.Name
+                  element3.Ascenddest = element2.Ascenddest
+                  element3.Descenddest = element2.Descenddest
+                  temp1.item1 = element3
+                  found = true
+                }
+              }
+            });
+          }
+        });
       });
-    });
+    }
+    else if (this.typeoftrip === 'One-Way') {
+      var asc = this.CountryCity[0].type + '|' + this.CountryCity[1]
+      var desc = this.CountryCity[2].type + '|' + this.CountryCity[3]
+      this.avioservice.aviocompanies.forEach(element1 => {
+        element1.Destinations.forEach(element2 => {
+          if (element2.Ascenddest === asc && element2.Descenddest === desc) {
+            element2.Flights.forEach(element3 => {
+              if (this.Dtaasc === element3.Dtaascend.split('T')[0]) {
+                element3.AvioCompany = element1.Name
+                element3.Ascenddest = element2.Ascenddest
+                element3.Descenddest = element2.Descenddest
+                this.flights.push(element3)
+              }
+            });
+          }
+        });
+      });
+    }
   }
   ngOnInit(): void {
     this.getCountries()
