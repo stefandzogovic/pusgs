@@ -40,7 +40,7 @@
                 <a class="nav-link" [routerLink]="['/profile/'].concat(currentUser.username).concat('friends')">Friends</a>
             </li>
             <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
-                <a class="nav-link" [routerLink]="['/#']">My Reservations</a>
+                <a class="nav-link" [routerLink]="['/profile/'].concat(currentUser.username).concat('MyReservations')">My Reservations</a>
             </li>
             <li class="nav-item" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}">
                 <a class="nav-link" [routerLink]="['/profile/', currentUser.username]">My Profile</a>

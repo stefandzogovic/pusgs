@@ -20,6 +20,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrderModule } from 'ngx-order-pipe';
 import { ReservationComponent } from './components/aviorelated/reservation/reservation.component';
 import { AcceptreservationComponent } from './components/aviorelated/acceptreservation/acceptreservation.component';
+import { MyreservationsComponent } from './components/aviorelated/myreservations/myreservations.component';
 
 
 
@@ -32,7 +33,8 @@ import { AcceptreservationComponent } from './components/aviorelated/acceptreser
     FriendlistComponent,
     AddnewflightComponent,
     ReservationComponent,
-    AcceptreservationComponent
+    AcceptreservationComponent,
+    MyreservationsComponent
   ],
   imports: [
     BrowserModule,

@@ -35,7 +35,7 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<User>> GetUser(int id)
 		{
 			var user = await _context.userdb.Include(y => y.Friends)
-											.Include(y => y.Reservations).ThenInclude(z => z.Invites).FirstOrDefaultAsync(x => x.Id == id);
+											.Include(y => y.Reservations).FirstOrDefaultAsync(x => x.Id == id);
 
 			if (user == null)
             {

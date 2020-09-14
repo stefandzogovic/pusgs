@@ -21,6 +21,7 @@ namespace WebAPI.Models
 		public int DestinationId { get; set; }
 		[JsonIgnore]
 		public Destination Destination { get; set; }
+		[JsonIgnore]
 		public List<Reservation> Reservations { get; set;}
 		public Flight()
 		{

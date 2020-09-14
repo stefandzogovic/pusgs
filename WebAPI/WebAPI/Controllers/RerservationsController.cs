@@ -45,24 +45,53 @@ namespace WebAPI.Controllers
 		public async Task<ActionResult<Reservation>> SendEmail([FromRoute]int id, [FromBody]Seat seat)
 		{
 		   var user = await _context.userdb.Include(y => y.Friends)
-								   .Include(y => y.Reservations).ThenInclude(z => z.Invites).FirstOrDefaultAsync(x => x.Id == id);
+								   .Include(y => y.Reservations).FirstOrDefaultAsync(x => x.Id == id);
 			var html = String.Format("<button <a href='http://localhost:4200/profile/{0}/acceptInvitation/seat{1}}'>Click me</button>", user.Id, seat.SeatId);
 			await _mailer.SendMailAsync("stefandzogovicpr26@gmail.com", "Test123", html);
 			return NoContent();
-
 		}
 
 		[HttpGet("PostReservation/{id1}/{id2}")]
 		public async Task<ActionResult<Reservation>> PostReservation( string id1,  int id2)
 		{
-			//var user = await _context.userdb.Include(y => y.Friends)
-			//						.Include(y => y.Reservations).ThenInclude(z => z.Invites).FirstOrDefaultAsync(x => x.Id == id);
-			//var html = String.Format("<button <a href='http://localhost:4200/profile/{0}/acceptInvitation/seat{1}}'>Click me</button>", user.Id, seat.SeatId);
-			//await _mailer.SendMailAsync("stefandzogovicpr26@gmail.com", "Test123", html);
+			var user = await _context.userdb.Include(y => y.Friends).Include(y => y.Reservations).FirstOrDefaultAsync(x => x.Username == id1);
+			var seat = await _context.Seat.FirstOrDefaultAsync(x => x.SeatId == id2);
+			var flight = await _context.flightsdb.FirstOrDefaultAsync(x => x.FlightId == seat.FlightId);
+			Reservation res = new Reservation();
+			res.User = user;
+			res.UserId = user.Id;
+			res.Seat = seat;
+			res.SeatId = seat.SeatId;
+			res.FlightId = seat.FlightId;
+			res.Flight = seat.Flight;
+			seat.Reserved = true;
+			_context.Attach(seat);
+			_context.Entry(seat).Property("Reserved").IsModified = true;
+
+			_context.reservationsdb.Add(res);
+			await _context.SaveChangesAsync();
+
 			return NoContent();
 
 		}
 
+		[HttpGet("GetReservations/{id1}")]
+		public async Task<ActionResult<List<Reservation>>> GetReservations(string id1)
+		{
+			var user = await _context.userdb.Include(y => y.Friends)
+								   .Include(y => y.Reservations).ThenInclude(x => x.Seat).FirstOrDefaultAsync(z => z.Username == id1);
+
+			var list = user.Reservations;
+
+			foreach(var r in list)
+			{
+				r.Seat = await _context.Seat.FirstOrDefaultAsync(m => m.SeatId == r.SeatId);
+				r.Flight = await _context.flightsdb.FirstOrDefaultAsync(m => m.FlightId == r.FlightId);
+				r.Flight.Destination = await _context.destinationdb.FirstOrDefaultAsync(m => m.DestinationId == r.Flight.DestinationId);
+			}
+
+			return list;
+		}
 
 	}
 

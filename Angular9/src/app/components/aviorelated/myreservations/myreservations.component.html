@@ -1,0 +1,25 @@
+<p>myreservations works!</p>
+
+<div *ngFor="let item of myreservations" class="row h-100">
+    <div class="col-sm-6">
+        <div class="card">
+            <!-- <h6 class="card-header">{{item.Flight.Destination.Ascenddest}} - {{item.Flight.Destination.Descenddest}}</h6> -->
+            <div class="card-body">
+                <div class="row">
+                    <h3 class="card-text col-sm-6">Time Ascend: {{item.Flight.Dtaascend}}</h3>
+                    <h3 class="card-text col-sm-6">Time Descend: {{item.Flight.Dtadescend}}</h3>
+                    <h3 class="card-text col-sm-6">Distance: {{item.Flight.Distance}}</h3>
+                    <h3 class="card-text col-sm-6">Duration: {{item.Flight.Duration}}h</h3>
+                    <h3 class="card-text  col-sm-6">Ticket Price: {{item.Flight.Ticketprice}}$</h3>
+                    <h3 class="card-text  col-sm-6">Stars:
+                        <ngb-rating [max]="5" rate="{{item.Flight.Stars}}">
+                        </ngb-rating>
+                    </h3>
+                    <div *ngIf="todaysDate < item.Flight.Dtaascend.split('T')[0]">
+                        <button>Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

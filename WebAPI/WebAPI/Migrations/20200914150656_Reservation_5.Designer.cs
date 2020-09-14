@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAPI.Contextt;
 
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20200914150656_Reservation_5")]
+    partial class Reservation_5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -176,6 +178,8 @@ namespace WebAPI.Migrations
 
                     b.HasIndex("FlightId");
 
+                    b.HasIndex("SeatId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("reservationsdb");
@@ -194,19 +198,12 @@ namespace WebAPI.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ReservationId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("Reserved")
                         .HasColumnType("bit");
 
                     b.HasKey("SeatId");
 
                     b.HasIndex("FlightId");
-
-                    b.HasIndex("ReservationId")
-                        .IsUnique()
-                        .HasFilter("[ReservationId] IS NOT NULL");
 
                     b.ToTable("Seat");
                 });
@@ -330,6 +327,12 @@ namespace WebAPI.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("WebAPI.Models.Seat", "Seat")
+                        .WithMany()
+                        .HasForeignKey("SeatId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("WebAPI.Models.User", "User")
                         .WithMany("Reservations")
                         .HasForeignKey("UserId")
@@ -344,11 +347,6 @@ namespace WebAPI.Migrations
                         .HasForeignKey("FlightId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("WebAPI.Models.Reservation", "Reservation")
-                        .WithOne("Seat")
-                        .HasForeignKey("WebAPI.Models.Seat", "ReservationId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("WebAPI.Models.Stop", b =>

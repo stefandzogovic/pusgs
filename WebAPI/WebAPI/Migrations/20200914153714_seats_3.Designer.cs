@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAPI.Contextt;
 
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20200914153714_seats_3")]
+    partial class seats_3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -347,8 +349,7 @@ namespace WebAPI.Migrations
 
                     b.HasOne("WebAPI.Models.Reservation", "Reservation")
                         .WithOne("Seat")
-                        .HasForeignKey("WebAPI.Models.Seat", "ReservationId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("WebAPI.Models.Seat", "ReservationId");
                 });
 
             modelBuilder.Entity("WebAPI.Models.Stop", b =>

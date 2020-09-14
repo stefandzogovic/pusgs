@@ -10,6 +10,7 @@ import { EditflightComponent } from './components/aviorelated/editflight/editfli
 import { AddnewflightComponent } from './components/aviorelated/addnewflight/addnewflight.component';
 import { ReservationComponent } from './components/aviorelated/reservation/reservation.component';
 import { AcceptreservationComponent } from './components/aviorelated/acceptreservation/acceptreservation.component';
+import { MyreservationsComponent } from './components/aviorelated/myreservations/myreservations.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent },
@@ -18,7 +19,8 @@ const routes: Routes = [
     children: [
       {path: "", component: MyProfileComponent },
       {path: "friends", component: FriendlistComponent},
-      {path: "acceptInvitation/seat/:id", component: AcceptreservationComponent}
+      {path: "acceptInvitation/seat/:id", component: AcceptreservationComponent},
+      {path: "MyReservations", component: MyreservationsComponent}
     ],
   },
   {
@@ -42,4 +44,4 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
-export const routingComponents = [HomeComponent, MyProfileComponent, AvioprofileComponent, EditflightComponent, FriendlistComponent]
+export const routingComponents = [HomeComponent, MyProfileComponent, AvioprofileComponent, EditflightComponent, FriendlistComponent, MyreservationsComponent]

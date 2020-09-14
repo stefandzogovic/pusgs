@@ -23,6 +23,12 @@ export class ReservationService {
     getReservation(username, seatid)
     {
       return this.http.get(this.rootURL +'/Rerservations/PostReservation/' + username + "/" + seatid)
+    }
+
+    getReservations(username)
+    {
+      console.log(username)
+      return this.http.get(this.rootURL +'/Rerservations/GetReservations/' + username);
 
     }
     
