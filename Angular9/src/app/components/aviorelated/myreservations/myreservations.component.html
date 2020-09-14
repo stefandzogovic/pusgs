@@ -12,11 +12,14 @@
                     <h3 class="card-text col-sm-6">Duration: {{item.Flight.Duration}}h</h3>
                     <h3 class="card-text  col-sm-6">Ticket Price: {{item.Flight.Ticketprice}}$</h3>
                     <h3 class="card-text  col-sm-6">Stars:
-                        <ngb-rating [max]="5" rate="{{item.Flight.Stars}}">
+                        <ngb-rating [max]="5" (rateChange)="onRateChange($event, item.Flight)" rate="{{item.Flight.Stars}}">
                         </ngb-rating>
                     </h3>
                     <div *ngIf="todaysDate < item.Flight.Dtaascend.split('T')[0]">
                         <button>Cancel</button>
+                    </div>
+                    <div (click)="PutFlight(item.Flight)" routerLinkActive="router-link-active"  *ngIf="todaysDate > item.Flight.Dtaascend.split('T')[0]">
+                        <button >Rate</button>
                     </div>
                 </div>
             </div>

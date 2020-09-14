@@ -89,6 +89,39 @@ namespace WebAPI.Controllers
 			return NoContent();
 		}
 
+		[HttpPut("PutFlight2/{id}")]
+		public async Task<IActionResult> PutFlight2(int id, [FromBody]Flight flight2)
+		{
+
+			var flight = await _context.flightsdb.FirstOrDefaultAsync(x => x.FlightId == id);
+
+			if (id != flight.FlightId)
+			{
+				return BadRequest();
+			}
+			flight.Voted += 1;
+			flight.Stars = (flight2.Stars + flight.Stars * flight.Voted) / flight.Voted;
+			_context.Entry(flight).State = EntityState.Modified;
+
+			try
+			{
+				await _context.SaveChangesAsync();
+			}
+			catch (DbUpdateConcurrencyException)
+			{
+				if (!FlightExists(id))
+				{
+					return NotFound();
+				}
+				else
+				{
+					throw;
+				}
+			}
+
+			return NoContent();
+		}
+
 		[HttpPut("{id}")]
         public async Task<IActionResult> PutAvioCompany(int id, AvioCompany avioCompany)
         {

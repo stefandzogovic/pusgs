@@ -6,7 +6,7 @@ import { UserService } from '../services/user.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AvioadminGuard implements CanActivate {
+export class ProfileGuard implements CanActivate {
   constructor(private data: UserService)
   {
 
@@ -16,11 +16,11 @@ export class AvioadminGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     // console.log('does something');
     const user = this.data.UserFromStorage();
-    if (user.type === 'adminavio' || user.type === 'admin') {
+    if (user.type === 'adminavio' || user.type === 'user' || user.type === 'admin') {
       return true;
     }
       
-    alert('Da biste pristupili ovom linku, morate imati ulogu admina ili admina aviokompanije!');
+    alert('Da biste pristupili ovom linku, morate imati ulogu korisnika!');
     return ;
   }
   

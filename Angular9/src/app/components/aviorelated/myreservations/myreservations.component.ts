@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
+import { AviocompanyService } from 'src/app/services/aviocompany.service';
 import { ReservationService } from 'src/app/services/reservation.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -13,7 +14,7 @@ export class MyreservationsComponent implements OnInit {
   todaysDate
   myreservations;
   username
-  constructor(private route: ActivatedRoute, private userservice: UserService, private res: ReservationService) {
+  constructor(private route: ActivatedRoute, private userservice: UserService, private aviocompany: AviocompanyService, private res: ReservationService) {
     this.route.paramMap.subscribe(
       (params: ParamMap) => {
         this.username = params.get('username');
@@ -34,6 +35,20 @@ export class MyreservationsComponent implements OnInit {
     this.todaysDate = yyyy + '-' + mm + '-' + dd;
   }
 
+  onRateChange(event: number, flight)
+  {
+    console.log(event)
+    flight.Stars = event
+  }
+
+  PutFlight(flight)
+  {
+    this.aviocompany.putFlight2(flight).subscribe(
+      x => {
+        console.log(x)
+      }
+    )
+  }
   ngOnInit(): void {
 
   }

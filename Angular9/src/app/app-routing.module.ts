@@ -11,10 +11,12 @@ import { AddnewflightComponent } from './components/aviorelated/addnewflight/add
 import { ReservationComponent } from './components/aviorelated/reservation/reservation.component';
 import { AcceptreservationComponent } from './components/aviorelated/acceptreservation/acceptreservation.component';
 import { MyreservationsComponent } from './components/aviorelated/myreservations/myreservations.component';
+import { ProfileGuard } from './guards/profile.guard';
 
 const routes: Routes = [
   {path: '', component: HomeComponent },
   {
+    canActivate: [ProfileGuard],
     path: 'profile/:username',
     children: [
       {path: "", component: MyProfileComponent },

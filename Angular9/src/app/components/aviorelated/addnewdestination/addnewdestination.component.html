@@ -47,7 +47,10 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-4 col-xs-12 offset-md-3" id="exp">
-        <button class="btn btn-success" (click)="btnAddNewDest()">Add New</button>
+    <div *ngIf="CountryCity[0] === '-1' || CountryCity[1] === '-1'  || CountryCity[2] === '-1'  || CountryCity[3] === '-1'" class="col-md-4 col-xs-12 offset-md-3" id="exp">
+        <button class="btn btn-success" disabled (click)="btnAddNewDest()">Add New</button>
+    </div>
+    <div *ngIf="CountryCity[0] !== '-1' && CountryCity[1] !== '-1'  && CountryCity[2] !== '-1'  && CountryCity[3] !== '-1'" class="col-md-4 col-xs-12 offset-md-3" id="exp">
+        <button class="btn btn-success"  (click)="btnAddNewDest()">Add New</button>
     </div>
 </div>

@@ -17,6 +17,7 @@ namespace WebAPI.Models
 		public double Stars { get; set; }
 		public List<Stop> Stops { get; set; }
 		public List<Seat> Seats { get; set; }
+		public int Voted { get; set; }
 
 		public int DestinationId { get; set; }
 		[JsonIgnore]
