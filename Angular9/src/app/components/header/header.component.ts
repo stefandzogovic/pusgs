@@ -12,11 +12,14 @@ import { OverlayService } from 'src/app/services/overlay.service';
 export class HeaderComponent implements OnInit {
 
   currentUser : User;
+  routerLinkFriends;
   constructor(private data: UserService) {}
 
 
   ngOnInit(): void {
     this.data.currentUser.subscribe(user => this.currentUser = user)
+    this.routerLinkFriends = this.currentUser.username  + "/friends"; 
+
   }
 
 //   open(content: TemplateRef<any> | ComponentType<any> | string) {

@@ -68,8 +68,7 @@ export class FriendlistComponent implements OnInit {
   }
 
   btnCloseClick(event: Event) {
-    console.log('Click!', event)
-    this.router.navigateByUrl('/profile')
+    this.router.navigateByUrl('/profile/' + this.currentUser.username)
   }
 
   btnAddFriend(user:User)

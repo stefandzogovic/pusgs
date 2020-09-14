@@ -7,6 +7,7 @@ import { UserService } from 'src/app/services/user.service';
 import { Flight } from 'src/entities/flight';
 import { Seat } from 'src/entities/seat';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+import { ReservationService } from 'src/app/services/reservation.service';
 
 
 @Component({
@@ -22,7 +23,8 @@ export class ReservationComponent implements OnInit {
   counter = 0
   seat;
   searchText
-  constructor(private modalService: NgbModal, private router: Router, private fb: FormBuilder, private route: ActivatedRoute, private data: AviocompanyService, public userservice: UserService, private avioCompanyService: AviocompanyService, private countryservice: CountriesService) {
+  
+  constructor(private reservations: ReservationService, private modalService: NgbModal, private router: Router, private fb: FormBuilder, private route: ActivatedRoute, private data: AviocompanyService, public userservice: UserService, private avioCompanyService: AviocompanyService, private countryservice: CountriesService) {
     this.flight = window.history.state.example
   }
 
@@ -44,7 +46,7 @@ export class ReservationComponent implements OnInit {
 
   Invite(user)
   {
-    
+    this.reservations.sendEmail(this.seat, user)
   }
 
   private getDismissReason(reason: any): string {

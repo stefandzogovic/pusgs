@@ -19,6 +19,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OrderModule } from 'ngx-order-pipe';
 import { ReservationComponent } from './components/aviorelated/reservation/reservation.component';
+import { AcceptreservationComponent } from './components/aviorelated/acceptreservation/acceptreservation.component';
 
 
 
@@ -30,7 +31,8 @@ import { ReservationComponent } from './components/aviorelated/reservation/reser
     FooterComponent,
     FriendlistComponent,
     AddnewflightComponent,
-    ReservationComponent
+    ReservationComponent,
+    AcceptreservationComponent
   ],
   imports: [
     BrowserModule,

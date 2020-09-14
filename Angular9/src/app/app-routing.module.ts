@@ -9,14 +9,16 @@ import { AddnewdestinationComponent } from './components/aviorelated/addnewdesti
 import { EditflightComponent } from './components/aviorelated/editflight/editflight.component';
 import { AddnewflightComponent } from './components/aviorelated/addnewflight/addnewflight.component';
 import { ReservationComponent } from './components/aviorelated/reservation/reservation.component';
+import { AcceptreservationComponent } from './components/aviorelated/acceptreservation/acceptreservation.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent },
   {
-    path: 'profile',
+    path: 'profile/:username',
     children: [
       {path: "", component: MyProfileComponent },
-      {path: "friends", component: FriendlistComponent}
+      {path: "friends", component: FriendlistComponent},
+      {path: "acceptInvitation/seat/:id", component: AcceptreservationComponent}
     ],
   },
   {
