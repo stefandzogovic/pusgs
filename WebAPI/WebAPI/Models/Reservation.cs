@@ -11,8 +11,9 @@ namespace WebAPI.Models
 		public int Passport { get; set; }
 		public int FlightId { get; set; }
 		public Flight Flight { get; set; }
-		public int UserId { get; set; }
+		public List<Invite> Invites { get; set; }
 		public User User { get; set; }
+		public int UserId { get; set; }
 
 		public Reservation()
 		{

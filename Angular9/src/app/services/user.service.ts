@@ -9,8 +9,8 @@ import { AvioCompan } from 'src/entities/aviocompany';
 })
 export class UserService {
 
-  private tempUser = new User(1, "Stefan", "Dzogovic", "dzogara123", "dzogara123", "adresa", "user", "mojemail@gmail.com", "0649772931");
-  // private tempUser = new User(3, "Ime", "Prezime", "dzogara123", "password", "adresasa", "user", "mail@gmail.com", "0649774215212931");
+  // private tempUser = new User(1, "Stefan", "Dzogovic", "dzogara123", "dzogara123", "adresa", "user", "stefandzogovicpr26@gmail.com", "0649772931");
+  private tempUser = new User(2, "Ime", "Prezime", "dzogara123", "password", "adresasa", "user", "stefandzogovicpr26@gmail.com", "0649774215212931");
 
   private userSource;
   currentUser;
@@ -123,11 +123,11 @@ export class UserService {
     return this.http.get<User[]>(this.rootURL + '/Friends/Requests', {params : params});
   }
 
-  getFriends(currentUser:User): Observable<User[]>
+  getFriends(currentUser:User): Observable<any[]>
   {
     let params = new HttpParams();
     params = params.append('var1', currentUser.id.toString());
-    return this.http.get<User[]>(this.rootURL + '/Friends', {params : params});
+    return this.http.get<any[]>(this.rootURL + '/Friends', {params : params});
   }
 
   acceptFriend(id1:number, id2: number)

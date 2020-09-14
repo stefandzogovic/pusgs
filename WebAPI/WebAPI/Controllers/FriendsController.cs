@@ -26,13 +26,24 @@ namespace WebAPI.Controllers
 		[HttpGet]
 		public async Task<ActionResult<IEnumerable<User>>> GetFriend([FromQuery(Name = "var1")] int id)
 		{
-			List<Friend> x = await _context.frienddb.Where(x => x.MainUserId != id).Where(p => p.FriendUserId == id).Where(y => y.Accepted == true).Select(z => z).ToListAsync();
+			List<Friend> x = await _context.frienddb.Where(x => x.MainUserId == id).Where(p => p.FriendUserId != id).Where(y => y.Accepted == true).Select(z => z).ToListAsync();
+			List<Friend> y = await _context.frienddb.Where(x => x.MainUserId != id).Where(p => p.FriendUserId == id).Where(y => y.Accepted == true).Select(z => z).ToListAsync();
 			List<User> list = new List<User>();
 
-			foreach (Friend f in x)
+			foreach(var v in x)
 			{
-				list = await _context.userdb.Where(x => x.Id == f.MainUserId).Select(y => y).ToListAsync();
+				list.Add(await _context.userdb.Where(x => x.Id == v.FriendUserId).Select(y => y).FirstOrDefaultAsync());
+
 			}
+
+			foreach (var v in y)
+			{
+				list.Add(await _context.userdb.Where(x => x.Id == v.MainUserId).Select(y => y).FirstOrDefaultAsync());
+
+			}
+
+
+
 			return list;
 		}
 

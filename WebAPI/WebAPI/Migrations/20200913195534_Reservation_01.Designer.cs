@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebAPI.Contextt;
 
 namespace WebAPI.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20200913195534_Reservation_01")]
+    partial class Reservation_01
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,14 +145,11 @@ namespace WebAPI.Migrations
                     b.Property<int>("ReservationId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("Accepted")
-                        .HasColumnType("bit");
-
                     b.HasKey("MainUserId", "FriendUserId", "ReservationId");
 
                     b.HasIndex("ReservationId");
 
-                    b.ToTable("invitesdb");
+                    b.ToTable("Invite");
                 });
 
             modelBuilder.Entity("WebAPI.Models.Reservation", b =>
@@ -175,7 +174,7 @@ namespace WebAPI.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("reservationsdb");
+                    b.ToTable("Reservation");
                 });
 
             modelBuilder.Entity("WebAPI.Models.Seat", b =>
@@ -232,7 +231,7 @@ namespace WebAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("AvioCompanyId")
+                    b.Property<int>("AvioCompanyId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -346,7 +345,9 @@ namespace WebAPI.Migrations
                 {
                     b.HasOne("WebAPI.Models.AvioCompany", "AvioCompany")
                         .WithMany("Users")
-                        .HasForeignKey("AvioCompanyId");
+                        .HasForeignKey("AvioCompanyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

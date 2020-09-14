@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -32,10 +33,11 @@ namespace WebAPI.Controllers
         // GET: api/Users/5
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(int id)
-        {
-            var user = await _context.userdb.FindAsync(id);
+		{
+			var user = await _context.userdb.Include(y => y.Friends)
+											.Include(y => y.Reservations).ThenInclude(z => z.Invites).FirstOrDefaultAsync(x => x.Id == id);
 
-            if (user == null)
+			if (user == null)
             {
                 return NotFound();
             }

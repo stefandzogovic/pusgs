@@ -252,7 +252,7 @@
                             </h3>
                             <h3 class="card-text  col-sm-6">Number of stops: {{item.Stops.length}}
                             </h3>
-                            <a href="reserve/flight/{{item.FlightId}}" class="btn btn-primary col-sm-2">Reserve</a>
+                            <button routerLink="/reserve/flight/{{item.FlightId}}" [state]="{ example: item}" class="btn btn-primary">Reserve</button>
                         </div>
                     </div>
                 </div>
@@ -302,7 +302,7 @@
                         </div>
                     </div>
                 </div>
-                <a href="reserve/flight/{{item.FlightId}}" class="btn btn-primary col-sm-2">Reserve</a>
+                <button routerLink="/reserve/flight/{{item.FlightId}}" [state]="{ example: item}" class="btn btn-primary">Reserve</button>
             </div>
         </div>
     </div>

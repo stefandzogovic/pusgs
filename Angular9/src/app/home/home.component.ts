@@ -101,6 +101,7 @@ export class HomeComponent implements OnInit {
       this.avioservice.aviocompanies.forEach(element1 => {
         element1.Destinations.forEach(element2 => {
           if (element2.Ascenddest === asc && element2.Descenddest === desc) {
+            console.log('LOL')
             element2.Flights.forEach(element3 => {
               if (this.Dtaasc === element3.Dtaascend.split('T')[0] && this.Dtadescend === element3.Dtadescend.split('T')[0]) {
                 if (found === true) {

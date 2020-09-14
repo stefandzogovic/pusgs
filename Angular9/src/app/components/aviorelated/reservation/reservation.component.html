@@ -1,1 +1,106 @@
 <p>reservation works!</p>
+
+<div class="form-group">
+    <div class="plane">
+        <div class="cockpit">
+            <h1>Select reserved Seats</h1>
+        </div>
+        <div class="exit exit--front fuselage">
+
+        </div>
+
+        <ol class="cabin fuselage" *ngFor="let item of flight.Seats; let i = index">
+            <div *ngIf="i % 6 == 0 || i == 0">
+                <li class="row">
+                    <ol class="seats">
+                        <li class="seat">
+                            <div>
+                                <input type="checkbox" [ngModelOptions]="{standalone: true}"
+                                    [(ngModel)]="flight.Seats[i].Reserved" id="{{flight.Seats[i].Name}}"
+                                    (change)='open(modal, flight.Seats[i])' />
+                                <label for="{{flight.Seats[i].Name}}"> {{flight.Seats[i].Name}}</label>
+                            </div>
+                        </li>
+
+                        <li class="seat">
+                            <input type="checkbox" [ngModelOptions]="{standalone: true}"
+                                [(ngModel)]="flight.Seats[i+1].Reserved" id="{{flight.Seats[i+1].Name}}"
+                                (change)='open(modal, flight.Seats[i+1])' />
+                            <label for="{{flight.Seats[i+1].Name}}"> {{flight.Seats[i+1].Name}}</label>
+                        </li>
+                        <li class="seat">
+                            <input type="checkbox" [ngModelOptions]="{standalone: true}"
+                                [(ngModel)]="flight.Seats[i+2].Reserved" (change)='open(modal, flight.Seats[i+2])'
+                                id="{{flight.Seats[i+2].Name}}" />
+                            <label for="{{flight.Seats[i+2].Name}}">{{flight.Seats[i+2].Name}}</label>
+                        </li>
+                        <li class="seat">
+                            <input type="checkbox" [ngModelOptions]="{standalone: true}"
+                                [(ngModel)]="flight.Seats[i+3].Reserved" (change)='open(modal, flight.Seats[i+3])'
+                                id="{{flight.Seats[i+3].Name}}" />
+                            <label for="{{flight.Seats[i+3].Name}}">{{flight.Seats[i+3].Name}}</label>
+                        </li>
+                        <li class="seat">
+                            <input type="checkbox" [ngModelOptions]="{standalone: true}"
+                                [(ngModel)]="flight.Seats[i+4].Reserved" (change)='open(modal, flight.Seats[i+4])'
+                                id="{{flight.Seats[i+4].Name}}" />
+                            <label for="{{flight.Seats[i+4].Name}}">{{flight.Seats[i+4].Name}}</label>
+                        </li>
+                        <li class="seat">
+                            <input type="checkbox" [ngModelOptions]="{standalone: true}"
+                                [(ngModel)]="flight.Seats[i+5].Reserved" (change)='open(modal, flight.Seats[i+5])'
+                                id="{{flight.Seats[i+5].Name}}" />
+                            <label for="{{flight.Seats[i+5].Name}}">{{flight.Seats[i+5].Name}}</label>
+                        </li>
+                    </ol>
+                </li>
+            </div>
+        </ol>
+        <div class="exit exit--back fuselage">
+        </div>
+    </div>
+</div>
+
+<ng-template #modal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Seat Number {{seat.Name}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="search-hero">
+        <input class="form-control" type="text" name="search" [(ngModel)]="searchText"
+            placeholder="Search by name or lastname" autocomplete="off">
+    </div>
+    <!-- <div class="btn-group sort-btn">
+        <button class="btn btn-primary" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Sort by: {{sortby}}</button>
+        <button (click)="sort('desc')" *ngIf="order === 'asc'" class="btn btn-primary" data-sort="none"><i class="fa fa-sort-asc"></i></button>
+        <button (click)="sort('asc')" *ngIf="order === 'desc'" class="btn btn-primary" data-sort="none"><i class="fa fa-sort-desc"></i></button>
+        <div class="dropdown-menu">
+            <a *ngIf="sortby === 'Name'" class="dropdown-item active" role="button" tabindex="-1" data-type="alpha">Name</a>
+            <a *ngIf="sortby !== 'Name'" class="dropdown-item" role="button" (click)="SortBy('Name')" tabindex="-1" data-type="alpha">Name</a>
+        </div>
+    </div>  -->
+    <br>
+    <div class="friend-list">
+        <ul class="flex-container">
+
+            <div class="" *ngFor="let user of userservice.friends |filter:searchText">
+                <div id="flexbox-item" class="list-group-item text-left">
+                    <span class=""><strong>{{user.Name}}</strong></span>
+                </div>
+                <div id="flexbox-item" class="list-group-item text-left">
+                    <span class=""><strong>{{user.Lastname}}</strong></span>
+                </div>
+                <div id="flexbox-item" class="list-group-item text-left">
+                    <button  class="btn btn-danger">Remove</button>
+                </div>
+            </div>
+        </ul>
+    </div>
+    <div class="modal-footer">
+        <div *ngIf="counter === 0">
+            <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Reserve</button>
+        </div>
+    </div>
+</ng-template>

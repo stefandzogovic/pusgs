@@ -23,8 +23,8 @@ export class FriendlistComponent implements OnInit {
   allusers = [];
   searchText2;
   currentUser: User;
-  requestUsers: Array<User>
-  friends: Array<User>
+  requestUsers
+  friends
 
   sortby: string = '';
   order: string = 'asc';
@@ -37,21 +37,21 @@ export class FriendlistComponent implements OnInit {
     this.order = order
     if (this.sortby == 'Name') {
       if (this.order === 'asc') {
-        this.searchText.aviocompanies.sort((a, b) => (a.Name > b.Name) ? 1 : -1)
+        this.friends.sort((a, b) => (a.Name > b.Name) ? 1 : -1)
 
       }
       else if (this.order === 'desc') {
-        this.searchText.aviocompanies.sort((a, b) => (a.Name > b.Name) ? -1 : 1)
+        this.friends.sort((a, b) => (a.Name > b.Name) ? -1 : 1)
 
       }
     }
-    else if (this.sortby == 'City') {
+    if (this.sortby == 'LastName') {
       if (this.order === 'asc') {
-        this.searchText.aviocompanies.sort((a, b) => (a.Address > b.Name) ? 1 : -1)
+        this.friends.sort((a, b) => (a.Lastname > b.Lastname) ? 1 : -1)
 
       }
       else if (this.order === 'desc') {
-        this.searchText.aviocompanies.sort((a, b) => (a.Name > b.Name) ? -1 : 1)
+        this.friends.sort((a, b) => (a.Lastname > b.Lastname) ? -1 : 1)
 
       }
     }
@@ -63,6 +63,7 @@ export class FriendlistComponent implements OnInit {
     this.userService.currentUser.subscribe(user => this.currentUser = user)
     this.requestUsers = this.userService.requestUsers;
     this.friends = this.userService.friends;
+    console.log(this.friends)
 
   }
 

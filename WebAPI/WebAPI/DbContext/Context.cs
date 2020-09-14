@@ -34,10 +34,9 @@ namespace WebAPI.Contextt
 				Name = "Slana Bara Airlines"
 			});
 
-			builder.Entity<Reservation>().HasOne(s => s.User)
-				.WithMany(ta => ta.Reservations)
-				.HasForeignKey(u => u.UserId)
-				.OnDelete(DeleteBehavior.Restrict);
+			builder.Entity<Invite>().HasKey(f => new { f.MainUserId, f.FriendUserId, f.ReservationId });
+			builder.Entity<Invite>().HasOne(f => f.Reservation).WithMany(mu => mu.Invites).OnDelete(DeleteBehavior.Restrict);
+
 
 			builder.Entity<Reservation>()
 				.HasOne<Flight>(s => s.Flight)
@@ -64,6 +63,8 @@ namespace WebAPI.Contextt
 		public DbSet<WebAPI.Models.Destination> destinationdb { get; set; }
 		public DbSet<AvioCompany> aviocompanydb { get; set; }
 		public DbSet<Flight> flightsdb { get; set; }
+		public DbSet<Invite> invitesdb { get; set; }
+		public DbSet<Reservation> reservationsdb { get; set; }
 
 	}
 }

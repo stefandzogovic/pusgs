@@ -28,7 +28,7 @@ namespace WebAPI.Models
 
 		public List<Reservation> Reservations { get; set; }
 		
-		public int AvioCompanyId { get; set; }
+		public int? AvioCompanyId { get; set; }
 		public AvioCompany AvioCompany { get; set; }
 
 		public virtual ICollection<Friend> MainUserFriends { get; set; }
